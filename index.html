@@ -1,111 +1,119 @@
 <html>
-	<script
-	  src="https://code.jquery.com/jquery-3.1.1.min.js"
-	  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-	  crossorigin="anonymous"></script>
-	<!-- <script src="https://rawgit.com/aframevr/aframe/917c06889ee1f3f79b7b1bbd9eab9815f9512503/dist/aframe.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+
 	<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
 	<script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
 	<script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
 	<script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
-	 <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"> </script>
-  <script src="https://unpkg.com/aframe-template-component@3.1.1/dist/aframe-template-component.min.js"></script>
-	<script src="JS/NoSleep.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"> </script>
+    <script src="https://unpkg.com/aframe-template-component@3.1.1/dist/aframe-template-component.min.js">
+    </script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+
+    <script src="JS/NoSleep.min.js"></script>
 	<script src='JS/Hotspots.js'></script>
 	<script src="JS/set-image.js"></script>
+
 	<head>
-		<title>Live Up Demo</title>
+		<title>Test-LiveUp</title>
+        <style media="screen">
+        /* Paste this css to your style sheet file or under head tag */
+        /* This only works with JavaScript,
+        if it's not present, don't show loader */
+        .no-js #loader { display: none;  }
+        .js #loader { display: block; position: absolute; left: 100px; top: 0; }
+        .se-pre-con {
+        	position: fixed;
+        	left: 0px;
+        	top: 0px;
+        	width: 100%;
+        	height: 100%;
+        	z-index: 9999;
+        	background: url(simple-pre-loader/images/loader-64x/Preloader_1.gif) center no-repeat #fff;
+        }
+        </style>
 	</head>
-<body>
 
-	<a-scene>
+    <body>
+        <div class="se-pre-con"></div>
+        <a-scene>
+            <a-assets>
+    			<img id="houseEntrance" src="assets/panos/houseEntrance.jpg"></img>
+    			<img id="start" src="assets/panos/start.jpg">
+    			<img id="hotspot" src="assets/img/hotspot.png"></img>
+    			<img id="mcLogo" src="assets/logos/machani.png"></img>
+    			<img id="machani" src="assets/img/machaniLogo.png"></img>
+    			<img id="scapic" src="assets/img/scapic.png"></img>
+    			<img id="startButton" src="assets/img/startExperience.png"></img>
+    			<img id="backButton" src="assets/img/goBack.png"></img>
+    			<img id="homeButton" src="assets/img/homeButton.png"></img>
+    			<img id="aboutScapic" src="assets/img/aboutScapic.png"></img>
+    			<img id="aboutMachani" src="assets/img/aboutMachani.png"></img>
+                <audio src="assets/media/WelcomeScapic.ogg" id="welcomeScapic"></audio>
 
-		<a-asset-items>
-        <!--
-            <img id="corridor_view" src="assets/panos/CorridorView.jpg"></img>
-			<img id="kitchen" src="assets/panos/kitchen.jpg"></img>
-			<img id="living_room" src="assets/panos/livingRoom.jpg"></img>
-			<img id="bedroom_one" src="assets/panos/bedroomOne.jpg"></img>
-			<img id="bedroom_one_bathroom" src="assets/panos/bedroomOneBathroom.jpg"></img>
-			<img id="bedroom_two" src="assets/panos/bedroomTwo.jpg"></img>
-			<img id="bedroom_two_view2" src="assets/panos/bedroomTwoAnotherView.jpg"></img>
-			<img id="bedroom_two_bathroom" src="assets/panos/bedroomTwoBathroomView.jpg"></img>
-            <img id="common_bathroom" src="assets/panos/commonBathroom.jpg"></img>
-            <img id="guest_room" src="assets/panos/guestRoom.jpg"></img>
-            <img id="dining_room" src="assets/panos/diningRoom.jpg"></img>
-            <img id="hall" src="assets/panos/hall.jpg"></img>
-         -->
-			<img id="houseEntrance" src="assets/panos/houseEntrance.jpg"></img>
-			<img id="start" src="assets/panos/start.jpg">
-			<img id="hotspot" src="assets/img/hotspot.png"></img>
-			<img id="mcLogo" src="assets/logos/machani.png"></img>
-			<img id="machani" src="assets/img/machaniLogo.png"></img>
-			<img id="scapic" src="assets/img/scapic.png"></img>
-			<img id="startButton" src="assets/img/startExperience.png"></img>
-			<img id="backButton" src="assets/img/goBack.png"></img>
-			<img id="homeButton" src="assets/img/homeButton.png"></img>
-			<img id="aboutScapic" src="assets/img/aboutScapic.png"></img>
-			<img id="aboutMachani" src="assets/img/aboutMachani.png"></img>
+                <a-asset-items>
+        			<a-mixin id="H_image" material="src: #hotspot"></a-mixin>
+        	        <script id="link" type="text/nunjucks">
+        	          <a-plane mixin="H_image" class="link" height="1" width="1"
+        	            material="shader: flat;side:double;transparent:true;"
+        	            event-set__1="_event: mousedown; scale: 1 1 1"
+        	            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+        	            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+        	            event-set__4="_event: mouseleave; scale: 1 1 1"
+        	            set-image="on:click;"
+        	            ></a-plane>
+                	</script>
+        		</a-asset-items>
+            </a-assets>
 
-			<a-mixin id="H_image" material="src: #hotspot"></a-mixin>
-	        <script id="link" type="text/nunjucks">
-	          <a-plane mixin="H_image" class="link" height="1" width="1"
-	            material="shader: flat;side:double;transparent:true;"
-	            event-set__1="_event: mousedown; scale: 1 1 1"
-	            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
-	            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
-	            event-set__4="_event: mouseleave; scale: 1 1 1"
-	            set-image="on:click;"
-	            ></a-plane>
-        	</script>
-        	<audio src="assets/media/WelcomeScapic.ogg" id="welcomeScapic"></audio>
-		</a-asset-items>
+            <a-entity id="startScreen">
+        	 	<a-image id="machaniLogo1" src="#mcLogo" position="-6.21 1.04 -0.68" rotation="0 90.53 0" scale="5 4 1"></a-image>
+        	 	<a-image id="startExperience" src="#startButton" position="-5.73 -1.7 -0.63" scale="3.6 0.7 1" rotation="-1.72 88.81 0">
+        	 	</a-image>
+        	</a-entity>
 
-        <a-entity id="startScreen">
-    	 	<a-image id="machaniLogo1" src="#mcLogo" position="-6.21 1.04 -0.68" rotation="0 90.53 0" scale="5 4 1"></a-image>
-    	 	<a-image id="startExperience" src="#startButton" position="-5.73 -1.7 -0.63" scale="3.6 0.7 1" rotation="-1.72 88.81 0">
-    	 	</a-image>
-    	</a-entity>
+        	<a-entity id="startScreen2" position="1.62 0 0" rotation="0 -178 0">
+        	 	<a-image id="machaniLogo2" src="#mcLogo" position="-4.3 1.02 0.63" rotation="0 90.53 0" scale="5 4 1"></a-image>
+        	 	<a-image id="startExperience2" src="#startButton" position="-3.83 -1.7 0.56" scale="4.5 1 1" rotation="-1.72 88.81 0"></a-image>
+        	</a-entity>
 
-    	<a-entity id="startScreen2" position="1.62 0 0" rotation="0 -178 0">
-    	 	<a-image id="machaniLogo2" src="#mcLogo" position="-4.3 1.02 0.63" rotation="0 90.53 0" scale="5 4 1"></a-image>
-    	 	<a-image id="startExperience2" src="#startButton" position="-3.83 -1.7 0.56" scale="4.5 1 1" rotation="-1.72 88.81 0"></a-image>
-    	</a-entity>
+    	 	<a-image class="experienceScreen" visible="false" id="scapicLogo" src="#scapic" position ="-2.94 -5.76 -1.65" rotation="-87 -115 -156" scale="2.23 0.80 1"></a-image>
+    	 	<a-image class="experienceScreen" visible="false" id="machaniLogo" src="#machani" position="-3.13 -5.93 1.74" rotation="-75.6 144.3 -52.1" scale="3 1.35 1"></a-image>
+    	 	<a-image class="experienceScreen home"  visible="false" id="homeButtonLogo" src="#homeButton" position="-1.76 -5.76 -0.05" rotation="-90 90.53 0" scale="1.26 0.42 1"> </a-image>
 
-	 	<a-image class="experienceScreen" visible="false" id="scapicLogo" src="#scapic" position ="-2.94 -5.76 -1.65" rotation="-87 -115 -156" scale="2.23 0.80 1"></a-image>
-	 	<a-image class="experienceScreen" visible="false" id="machaniLogo" src="#machani" position="-3.13 -5.93 1.74" rotation="-75.6 144.3 -52.1" scale="3 1.35 1"></a-image>
-	 	<a-image class="experienceScreen home"  visible="false" id="homeButtonLogo" src="#homeButton" position="-1.76 -5.76 -0.05" rotation="-90 90.53 0" scale="1.26 0.42 1"> </a-image>
+    	 	<a-entity id="ScapicAbout" visible="false">
+    	 		<a-image position="-15.8 0.0 0.0" rotation="0 90 0" scale="21.89 8.37 1" src="#aboutScapic"></a-image>
 
-	 	<a-entity id="ScapicAbout" visible="false">
-	 		<a-image position="-15.8 0.0 0.0" rotation="0 90 0" scale="21.89 8.37 1" src="#aboutScapic"></a-image>
+    	 		<a-entity id="line" layout="type: line; margin: 2" position="-16.5 -5.44 2.56" rotation="0 90 0" scale="2.38 1.28 1">
+    	 			<a-image class="backFromAbout" src="#backButton" position="0 0.0 0.0" scale="1.76 0.83 1" rotation="0 0 0"></a-image>
+    	 			<a-image class="homeScapic" src="#homeButton" position="2.22 0.0 0.0" scale="1.82 0.83 1" rotation="0 0 0"></a-image>
+    	 		</a-entity>
+     		</a-entity>
 
-	 		<a-entity id="line" layout="type: line; margin: 2" position="-16.5 -5.44 2.56" rotation="0 90 0" scale="2.38 1.28 1">
-	 			<a-image class="backFromAbout" src="#backButton" position="0 0.0 0.0" scale="1.76 0.83 1" rotation="0 0 0"></a-image>
-	 			<a-image class="homeScapic" src="#homeButton" position="2.22 0.0 0.0" scale="1.82 0.83 1" rotation="0 0 0"></a-image>
-	 		</a-entity>
- 		</a-entity>
+    	 	<a-entity id="MachaniAbout" visible="false">
+    	 		<a-image position="-15.8 0.0 0.0" rotation="0 90 0" scale="21.89 8.31 1" src="#aboutMachani"></a-image>
+    	 		<a-entity id="line" layout="type: line; margin: 2" position="-16.5 -5.44 2.56" rotation="0 90 0" scale="2.38 1.28 1">
+    	 			<a-image class="backMachani" src="#backButton" position="0 0.0 0.0" scale="1.76 0.83 1" rotation="0 0 0"></a-image>
+    	 			<a-image class="homeMachani" src="#homeButton" position="2.22 0.0 0.0" scale="1.82 0.83 1" rotation="0 0 0"></a-image>
+    	 		</a-entity>
+     		</a-entity>
 
-	 	<a-entity id="MachaniAbout" visible="false">
-	 		<a-image position="-15.8 0.0 0.0" rotation="0 90 0" scale="21.89 8.31 1" src="#aboutMachani"></a-image>
-	 		<a-entity id="line" layout="type: line; margin: 2" position="-16.5 -5.44 2.56" rotation="0 90 0" scale="2.38 1.28 1">
-	 			<a-image class="backMachani" src="#backButton" position="0 0.0 0.0" scale="1.76 0.83 1" rotation="0 0 0"></a-image>
-	 			<a-image class="homeMachani" src="#homeButton" position="2.22 0.0 0.0" scale="1.82 0.83 1" rotation="0 0 0"></a-image>
-	 		</a-entity>
- 		</a-entity>
-
-        <!-- Cursor. -->
-	 	<a-entity id="camera" camera="userHeight: -1" look-controls wasd-controls rotation="-11.8 80.9 0">
-            <a-entity id="cursor" position="0 0 -2" cursor="fuse: true; fuseTimeout: 900"
-                    geometry="primitive: ring; radiusOuter: 0.016; radiusInner: 0.01"
-                    material="color: #ff9; shader: flat; transparent: true; opacity: 0.5"
-                    scale="2 2 2" raycaster>
-                <a-animation attribute="scale" begin="animate" fill="none" easing="ease" from="1 1 1" to="3 3 3" ></a-animation>
+            <!-- Cursor. -->
+    	 	<a-entity id="camera" camera="userHeight: -1" look-controls wasd-controls rotation="-11.8 80.9 0">
+                <a-entity id="cursor" position="0 0 -2" cursor="fuse: true; fuseTimeout: 900"
+                        geometry="primitive: ring; radiusOuter: 0.016; radiusInner: 0.01"
+                        material="color: #ff9; shader: flat; transparent: true; opacity: 0.5"
+                        scale="2 2 2" raycaster>
+                    <a-animation attribute="scale" begin="animate" fill="none" easing="ease" from="1 1 1" to="3 3 3" ></a-animation>
+                </a-entity>
             </a-entity>
-        </a-entity>
 
-		<a-sky src="#start">
-			<a-animation attribute="material.color" begin="animate" easing="ease" from='#000' to='#FFF' fill="none"></a-animation>
-		</a-sky>
-	</a-scene>
-</body>
+    		<a-sky src="#start">
+    			<!-- <a-animation attribute="material.color" begin="animate" easing="ease" from='#000' to='#FFF' fill="none"></a-animation> -->
+    		</a-sky>
+    	</a-scene>
+    </body>
 </html>
