@@ -431,9 +431,12 @@ var showLogos = function(){
 
 /**
  * renders the experience upon loading of assets
+ * TODO:
+ * add basic loader animations
+ * Add configurable loader screen
  */
 $(document).ready(function(){
-    $(".se-pre-con").fadeOut("slow");
+    // $(".se-pre-con").fadeOut("slow");
     document.addEventListener('contextmenu', event => event.preventDefault());
 	document.querySelector('#startExperience').addEventListener('click',startExp);
 	document.querySelector('#startExperience2').addEventListener('click',startExp);
@@ -457,9 +460,3 @@ $(document).ready(function(){
 
 	document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
 });
-
-
-/**
- * TODO
- * Add configurable loader screen
- */
