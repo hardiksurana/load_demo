@@ -103,7 +103,7 @@
 
             <!-- Cursor. -->
     	 	<a-entity id="camera" camera="userHeight: -1" look-controls wasd-controls rotation="-11.8 80.9 0">
-                <a-entity id="cursor" position="0 0 -2" cursor="fuse: true; fuseTimeout: 900"
+                <a-entity id="cursor" position="0 0 -2" cursor="fuse: true; fuseTimeout: 500"
                         geometry="primitive: ring; radiusOuter: 0.016; radiusInner: 0.01"
                         material="color: #ff9; shader: flat; transparent: true; opacity: 0.5"
                         scale="2 2 2" raycaster>
@@ -112,7 +112,7 @@
             </a-entity>
 
     		<a-sky src="#start">
-    			<!-- <a-animation attribute="material.color" begin="animate" easing="ease" from='#000' to='#FFF' fill="none"></a-animation> -->
+    			<a-animation attribute="material.color" begin="animate" easing="ease" from='#000' to='#FFF' fill="none" dur="1750"></a-animation>
     		</a-sky>
     	</a-scene>
     </body>

@@ -254,274 +254,7 @@ var SCENES = [
 				],
             download: false
 			}
-		]
-
-
-/*
-var SCENES = [
-			{
-			name:'houseEntrance',
-			pano:'#house_entrance',
-			hotspots: [
-					{
-						id:'hall_H',
-						connected: 'hall',
-						position: "-10.8 -0.7836511050129384 6.393604706111482",
-						rotation: "0 -60 0",
-                        src: "assets/panos/template1.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'hall',
-			pano:'#hall',
-			hotspots: [
-					{
-						id:'livingRoom_H',
-						connected: 'livingRoom',
-						position: "-13 -0.7836511050129384 6.393604706111482",
-						rotation: "0 -60 0",
-						src: "assets/panos/template2.jpg"
-					},
-					{
-						id:'diningRoom_H',
-						connected: 'diningRoom',
-						position: "-9.33 -2.54 -7.16",
-						rotation: "0 -140 0",
-						src: "assets/panos/template3.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'livingRoom',
-			pano:'#living_room',
-			hotspots: [
-					{
-						id:'diningRoom_H',
-						connected: 'diningRoom',
-						position: "-12.8 -0.9 1.82",
-						rotation: "0 -60 0",
-						src: "assets/panos/template3.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'diningRoom',
-			pano:'#dining_room',
-			hotspots: [
-					{
-						id:'kitchen_H',
-						connected: 'kitchen',
-						position: "-15 -0.103 3.383",
-						rotation: "0 -60 0",
-						src: "assets/panos/template4.jpg"
-					},
-					{
-						id:'bedroomTwo_H',
-						connected: 'bedRoomTwo',
-						position: "14.48 1.253 11.65",
-						rotation: "0 47.61 0",
-						src: "assets/panos/template5.jpg"
-					},
-					{
-
-						id:'bedroomOne_H',
-						connected: 'bedRoomOne',
-						position: "11.79 -0.20 14.34",
-						rotation: "0 34.66 0",
-						src: "assets/panos/template6.jpg"
-					},
-					{
-						id:'guestRoom_H',
-						connected: 'guestRoom',
-						position: "13.55 1.272 2.929",
-						rotation: "0 93.5 0",
-						src: "assets/panos/template7.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'kitchen',
-			pano:'#kitchen',
-			hotspots: [
-					{
-						id:'diningRoom_H',
-						connected: 'diningRoom',
-						position: "9.229 -0.31 10.36",
-						rotation: "0 -137 0",
-						src: "assets/panos/template3.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'bedRoomTwo',
-			pano:'#bedroom_two',
-			hotspots: [
-					{
-						id:'corridorView_H',
-						connected: 'CorridorView',
-						position: "5.687 -1.92 11.44",
-						rotation: "0 36.84 0",
-						src: "assets/panos/template8.jpg"
-					},
-					{
-						id:'bedroomTwoAnotherView_H',
-						connected: 'bedRoomTwoViewTwo',
-						position: "7.02 -1.92 -11.8",
-						rotation: "0 143.2 0",
-						src: "assets/panos/bedroomTwoAnotherView.jpg"
-					},{
-						id:'bedroomTwoBathroom_H',
-						connected: 'bedRoomTwoBathroom',
-						position: "-14.0 -1.92 -10.8",
-						rotation: "0 -128.0 0",
-						src: "assets/panos/template9.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'bedRoomTwoViewTwo',
-			pano:'#bedroom_two_view2',
-			hotspots: [
-					{
-						id:'bedroomTwo',
-						connected: 'bedRoomTwo',
-						position: "-8.91 -1.92 11.85",
-						rotation: "0 -41.8 0",
-						src: "assets/panos/template5.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'bedRoomTwoBathroom',
-			pano:'#bedroom_two_bathroom',
-			hotspots: [
-					{
-						id:'corridorView_H',
-						connected: 'CorridorView',
-						position: "10.45 1.033 13.56",
-						rotation: "0 51.39 0",
-						src: "assets/panos/template8.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'bedRoomOne',
-			pano:'#bedroom_one',
-			hotspots: [
-					{
-						id:'bedRoomOneBathroom_H',
-						connected: 'bedRoomOneBathroom',
-						position: "-8.10 -0.75 4.833",
-						rotation: "0 -57.8 0",
-						src: "assets/panos/bedroomOneBathroom.jpg"
-					},
-					{
-						id:'corridorView_H',
-						connected: 'CorridorView',
-						position: "-15.9 0.232 1.012",
-						rotation: "0 -80.3 0",
-						src: "assets/panos/template8.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'bedRoomOneBathroom',
-			pano:'#bedroom_one_bathroom',
-			hotspots: [
-					{
-						id:'bedroomOne_H',
-						connected: 'bedRoomOne',
-						position: "6.363 0.055 -6.06",
-						rotation: "0 126.2 0",
-						src: "assets/panos/template6.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'guestRoom',
-			pano:'#guest_room',
-			hotspots: [
-					{
-						id:'corridorView_H',
-						connected: 'CorridorView',
-						position: "11.61 -0.27 2.413",
-						rotation: "0 104 0",
-						src: "assets/panos/template8.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'commonBathRoom',
-			pano:'#common_bathroom',
-			hotspots: [
-					{
-						id:'diningRoom_H',
-						connected: 'diningRoom',
-						position: "-0.01 -1.92 -10.7",
-						rotation: "0 -180 0",
-						src: "assets/panos/template3.jpg"
-					}
-				],
-            download: false
-			},
-			{
-			name:'CorridorView',
-			pano:'#corridor_view',
-			hotspots: [
-					{
-						id:'guestRoom_H',
-                        connected : 'guestRoom',
-						position:'-4.85 -0.83 -6.33',
-						rotation: '0.0 -147.0 0.0',
-                        src: "assets/panos/template7.jpg"
-					},{
-						id:'commonBathRoom_H',
-                        connected : 'commonBathRoom',
-						position:'5.95 0.812 8.691',
-						rotation: '0 35.06 0',
-                        src: "assets/panos/commonBathroom.jpg"
-					},{
-						id:'bedRoomTwo_H',
-                        connected : "bedRoomTwo",
-						position:"11.29 -1.33 -18.2",
-						rotation:"0 156.3 0",
-                        src: "assets/panos/bedroomTwo.jpg"
-					},{
-						id:'bedRoomOne_H',
-                        connected : "bedRoomOne",
-						position:"14.43 1.48 -11.3",
-						rotation:"0 137.6 0",
-                        src: "assets/panos/template6.jpg"
-					},{
-						id:'hall',
-                        connected : "hall",
-						position:"-10.7 -1.57 9.476",
-						rotation:"0 -50.3 0",
-                        src: "assets/panos/template1.jpg"
-					}
-				],
-            download: false
-			}
-		]*/
-
-
-
-
-
-
-
+		];
 
 
 var sceneArray = [];
@@ -551,9 +284,7 @@ var findScene = function(sceneName) {
  * set download flag as true to prevent re-download
  */
 var preloadImage = function(hotspot) {
-    // console.log("hotspot.connected = " + hotspot.connected);
     var num = findScene(hotspot.connected);
-    // console.log("SCENES[num] = " + SCENES[num]);
     if(SCENES[num].download == false) {
         var img = new Image();
         var newSceneId = hotspot.connected;
@@ -591,7 +322,6 @@ var renderHotspot = function(hotspot){
  */
 var loadScene = function(sceneName,loadedFrom){
 	sceneArray.push(sceneName);
-    // fadeOut();
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
             setTimeout(function() {
@@ -604,7 +334,6 @@ var loadScene = function(sceneName,loadedFrom){
                     preloadImage(hotspot);
                 });
             }, 50);
-            // fadeIn();
 		}
 	});
 }
@@ -700,109 +429,12 @@ var showLogos = function(){
 	document.querySelector('#homeButtonLogo').setAttribute('visible',true);
 }
 
-
-/**
- * fadeIn animation to the scene
- */
-function fadeIn () {
-  var entities = document.querySelectorAll('a-entity');
-  var sky = document.querySelectorAll('a-sky');
-	for(var i=0; i<entities.length; i++){
-		if(validEntity(entities[i])){
-			entities[i].setAttribute('material','opacity',0);
-		}
-	}
-
-	for(var i=0; i<sky.length; i++){
-		if(validEntity(sky[i])){
-			sky[i].setAttribute('material','opacity',0);
-		}
-	}
-	for(var i=0; i<entities.length; i++){
-		if(validEntity(entities[i])){
-			var myAnimate = document.createElement('a-animation');
-			myAnimate.setAttribute('attribute','material.opacity');
-			myAnimate.setAttribute('to',"1");
-            // myAnimate.setAttribute("dur", "100");
-			myAnimate.setAttribute('beign',"fade");
-			entities[i].appendChild(myAnimate);
-			entities[i].emit('fade')
-		}
-	}
-
-	for(var i=0; i<sky.length; i++){
-		if(validEntity(sky[i])){
-			var myAnimate = document.createElement('a-animation');
-			myAnimate.setAttribute('attribute','material.opacity');
-			myAnimate.setAttribute('to',"1");
-            // myAnimate.setAttribute("dur", "100");
-			myAnimate.setAttribute('beign',"fade");
-			sky[i].appendChild(myAnimate);
-			sky[i].emit('fade')
-		}
-	}
-}
-
-/**
- * fadeOut animation to the scene
- */
-function fadeOut(){
-    var entities = document.querySelectorAll('a-entity');
-  var sky = document.querySelectorAll('a-sky');
-
-	for(var i=0; i<entities.length; i++){
-		if(validEntity(entities[i])){
-			entities[i].setAttribute('material','opacity',1);
-		}
-	}
-
-	for(var i=0; i<sky.length; i++){
-		if(validEntity(sky[i])){
-			console.log("entered");
-			sky[i].setAttribute('material','opacity',1);
-		}
-	}
-	for(var i=0; i<entities.length; i++){
-		if(validEntity(entities[i])){
-			var myAnimate = document.createElement('a-animation');
-    	    myAnimate.setAttribute('attribute','material.opacity');
-    	    myAnimate.setAttribute('to',"0");
-            // myAnimate.setAttribute("dur", "100");
-    	    myAnimate.setAttribute('beign',"fade");
-    	    entities[i].appendChild(myAnimate);
-    	    entities[i].emit('fade');
-		}
-	}
-
-	for(var i=0; i<sky.length; i++){
-		if(validEntity(sky[i])){
-			var myAnimate = document.createElement('a-animation');
-    	    myAnimate.setAttribute('attribute','material.opacity');
-    	    myAnimate.setAttribute('to',"0");
-            // myAnimate.setAttribute("dur", "100");
-    	    myAnimate.setAttribute('beign',"fade");
-    	    sky[i].appendChild(myAnimate);
-    	    sky[i].emit('fade');
-		}
-	}
-}
-
-function validEntity(entity){
-    return
-        !(entity.id === 'cameraWrapper' || entity.id == "pointLight" || entity.id === "dirLight" ||
-		entity.attributes[0].nodeName === 'camera' ||
-		entity.id === 'cursor' ||
-		entity.id === 'camera' ||
-		entity.className === "hotspotClass" ||
-		entity.className === "ignoreHotspot");
-}
-
 /**
  * renders the experience upon loading of assets
  */
 $(document).ready(function(){
-	console.log('loaded');
     $(".se-pre-con").fadeOut("slow");
+    document.addEventListener('contextmenu', event => event.preventDefault());
 	document.querySelector('#startExperience').addEventListener('click',startExp);
 	document.querySelector('#startExperience2').addEventListener('click',startExp);
 	document.querySelector('.backFromAbout').addEventListener('click',goBackFromAboutScreen);
@@ -825,3 +457,9 @@ $(document).ready(function(){
 
 	document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
 });
+
+
+/**
+ * TODO
+ * Add configurable loader screen
+ */
