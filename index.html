@@ -11,6 +11,7 @@
     <script src="https://unpkg.com/aframe-template-component@3.1.1/dist/aframe-template-component.min.js">
     </script>
 
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
     <script src="JS/NoSleep.min.js"></script>
@@ -19,24 +20,14 @@
 
 	<head>
 		<title>Test-LiveUp</title>
-        <style media="screen">
-            .se-pre-con {
-            	position: fixed;
-            	left: 0px;
-            	top: 0px;
-            	width: 100%;
-            	height: 100%;
-            	z-index: 9999;
-            	background: url(./assets/img/Preloader_1.gif) center no-repeat #fff;
-            }
-        </style>
 	</head>
 
     <body>
-        <!-- <div class="se-pre-con"></div> -->
         <a-scene>
             <a-assets>
-    			<img id="houseEntrance" src="./assets/panos/houseEntrance.jpg"></img>
+                <img id="loader" src="./assets/img/Preloader_1.gif"></img>
+
+                <img id="houseEntrance" src="./assets/panos/houseEntrance.jpg"></img>
     			<img id="start" src="./assets/panos/start.jpg">
     			<img id="hotspot" src="./assets/img/hotspot.png"></img>
     			<img id="mcLogo" src="./assets/logos/machani.png"></img>
@@ -64,21 +55,31 @@
         		</a-asset-items>
             </a-assets>
 
+            <!-- loader -->
+            <a-entity id="loader_entity" geometry="primitive:box; width:1.5; height:1.5; depth:1.5;" position="0 0 0" material="shader:gif; src: url(./assets/img/Preloader_1.gif);" position="0 0 -5" scale="0.2 0.2 0.2" visible="false">
+                <a-animation attribute="rotation" dur="10000" fill="forwards" to="0 360 0" repeat="indefinite" easing="linear">
+                </a-animation>
+            </a-entity>
+
+            <!-- start screen -->
             <a-entity id="startScreen">
         	 	<a-image id="machaniLogo1" src="#mcLogo" position="-6.21 1.04 -0.68" rotation="0 90.53 0" scale="5 4 1"></a-image>
         	 	<a-image id="startExperience" src="#startButton" position="-5.73 -1.7 -0.63" scale="3.6 0.7 1" rotation="-1.72 88.81 0">
         	 	</a-image>
         	</a-entity>
 
+            <!-- start screen -->
         	<a-entity id="startScreen2" position="1.62 0 0" rotation="0 -178 0">
         	 	<a-image id="machaniLogo2" src="#mcLogo" position="-4.3 1.02 0.63" rotation="0 90.53 0" scale="5 4 1"></a-image>
         	 	<a-image id="startExperience2" src="#startButton" position="-3.83 -1.7 0.56" scale="4.5 1 1" rotation="-1.72 88.81 0"></a-image>
         	</a-entity>
 
+            <!-- experience screen -->
     	 	<a-image class="experienceScreen" visible="false" id="scapicLogo" src="#scapic" position ="-2.94 -5.76 -1.65" rotation="-87 -115 -156" scale="2.23 0.80 1"></a-image>
     	 	<a-image class="experienceScreen" visible="false" id="machaniLogo" src="#machani" position="-3.13 -5.93 1.74" rotation="-75.6 144.3 -52.1" scale="3 1.35 1"></a-image>
     	 	<a-image class="experienceScreen home"  visible="false" id="homeButtonLogo" src="#homeButton" position="-1.76 -5.76 -0.05" rotation="-90 90.53 0" scale="1.26 0.42 1"> </a-image>
 
+            <!-- about scapic -->
     	 	<a-entity id="ScapicAbout" visible="false">
     	 		<a-image position="-15.8 0.0 0.0" rotation="0 90 0" scale="21.89 8.37 1" src="#aboutScapic"></a-image>
 
@@ -88,6 +89,7 @@
     	 		</a-entity>
      		</a-entity>
 
+            <!-- about LiveUp -->
     	 	<a-entity id="MachaniAbout" visible="false">
     	 		<a-image position="-15.8 0.0 0.0" rotation="0 90 0" scale="21.89 8.31 1" src="#aboutMachani"></a-image>
     	 		<a-entity id="line" layout="type: line; margin: 2" position="-16.5 -5.44 2.56" rotation="0 90 0" scale="2.38 1.28 1">
@@ -96,7 +98,7 @@
     	 		</a-entity>
      		</a-entity>
 
-            <!-- Cursor. -->
+            <!-- cursor. -->
     	 	<a-entity id="camera" camera="userHeight: -1" look-controls wasd-controls rotation="-11.8 80.9 0">
                 <a-entity id="cursor" position="0 0 -2" cursor="fuse: true; fuseTimeout: 500"
                         geometry="primitive: ring; radiusOuter: 0.016; radiusInner: 0.01"
@@ -106,8 +108,9 @@
                 </a-entity>
             </a-entity>
 
+            <!-- sky -->
     		<a-sky src="#start">
-    			<a-animation attribute="material.color" begin="animate" easing="ease" from='#000' to='#FFF' fill="none" dur="1750"></a-animation>
+    			<a-animation attribute="material.color" begin="animate" easing="ease" from='#000' to='#FFF' fill="none"></a-animation>
     		</a-sky>
     	</a-scene>
     </body>

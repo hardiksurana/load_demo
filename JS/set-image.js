@@ -19,14 +19,18 @@ AFRAME.registerComponent('set-image', {
 
         var loadSceneName = this.parentEl.dataset.src;
         var sceneToLoad = SCENES.filter(function(scene){
-          if(scene.name===loadSceneName){
-            return scene;
-          }
+            if(scene.name === loadSceneName){
+                return scene;
+            }
         });
-        if(sceneToLoad.length>0){
-          document.querySelector('#cursor').emit('animate'); 
-          document.querySelector('a-sky').emit('animate');
-          loadScene(sceneToLoad[0].name,this);
+        if(sceneToLoad.length > 0) {
+            document.querySelector('#cursor').emit('animate');
+            // document.querySelector('a-sky').emit('animate');
+            document.querySelector('#loader_entity').setAttribute('visible', true);
+
+            // setTimeout(function() {
+                loadScene(sceneToLoad[0].name,this);
+            // }, 1000);
         }
     });
   },

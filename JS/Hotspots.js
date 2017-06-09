@@ -305,7 +305,7 @@ var preloadImage = function(hotspot) {
 var renderHotspot = function(hotspot){
 	var entity = document.createElement('a-entity');
 	entity.setAttribute('template','src: #link');
-	entity.setAttribute('data-thumb','#hotspot')
+	entity.setAttribute('data-thumb','#hotspot');
 	entity.setAttribute('data-src',hotspot.connected);
 	entity.setAttribute('data-title',hotspot.connected);
 	entity.setAttribute('position',hotspot.position);
@@ -328,13 +328,14 @@ var loadScene = function(sceneName,loadedFrom){
                 removeHotspots();
             }, 50);
 
-            document.querySelector('a-sky').setAttribute('color','');
+            document.querySelector('#loader_entity').setAttribute('visible', false);
             document.querySelector('a-sky').setAttribute('src',"#" + scene.name);
+            document.querySelector('a-sky').setAttribute('color','');
 
             setTimeout(function() {
                 scene.hotspots.map(function(hotspot){
-                    renderHotspot(hotspot);
                     preloadImage(hotspot);
+                    renderHotspot(hotspot);
                 });
             }, 50);
 		}
@@ -439,7 +440,6 @@ var showLogos = function(){
  * Add configurable loader screen
  */
 $(document).ready(function(){
-    // $(".se-pre-con").fadeOut("slow");
     document.addEventListener('contextmenu', event => event.preventDefault());
 	document.querySelector('#startExperience').addEventListener('click',startExp);
 	document.querySelector('#startExperience2').addEventListener('click',startExp);
