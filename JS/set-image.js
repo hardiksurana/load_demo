@@ -28,9 +28,9 @@ AFRAME.registerComponent('set-image', {
             // document.querySelector('a-sky').emit('animate');
             document.querySelector('#loader_entity').setAttribute('visible', true);
 
-            // setTimeout(function() {
+            setTimeout(function() {
                 loadScene(sceneToLoad[0].name,this);
-            // }, 1000);
+            }, 1000);
         }
     });
   },

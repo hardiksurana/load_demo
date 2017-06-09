@@ -294,6 +294,7 @@ var preloadImage = function(hotspot) {
         img.id = newSceneId;
         document.querySelector('a-assets').appendChild(img);
         SCENES[num].download = true;
+        console.log(document.querySelectorAll('a-assets'));
     }
 }
 
