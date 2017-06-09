@@ -8,7 +8,7 @@ var SCENES = [
 						connected: 'hall',
 						position: "-10.8 -0.7836511050129384 6.393604706111482",
 						rotation: "0 -60 0",
-                        src: "assets/panos/hall.jpg"
+                        src: "./assets/panos/hall.jpg"
 					}
 				],
             download: false
@@ -22,14 +22,14 @@ var SCENES = [
 						connected: 'livingRoom',
 						position: "-13 -0.7836511050129384 6.393604706111482",
 						rotation: "0 -60 0",
-						src: "assets/panos/livingRoom.jpg"
+						src: "./assets/panos/livingRoom.jpg"
 					},
 					{
 						id:'diningRoom_H',
 						connected: 'diningRoom',
 						position: "-9.33 -2.54 -7.16",
 						rotation: "0 -140 0",
-						src: "assets/panos/diningRoom.jpg"
+						src: "./assets/panos/diningRoom.jpg"
 					}
 				],
             download: false
@@ -43,7 +43,7 @@ var SCENES = [
 						connected: 'diningRoom',
 						position: "-12.8 -0.9 1.82",
 						rotation: "0 -60 0",
-						src: "assets/panos/diningRoom.jpg"
+						src: "./assets/panos/diningRoom.jpg"
 					}
 				],
             download: false
@@ -57,14 +57,14 @@ var SCENES = [
 						connected: 'kitchen',
 						position: "-15 -0.103 3.383",
 						rotation: "0 -60 0",
-						src: "assets/panos/kitchen.jpg"
+						src: "./assets/panos/kitchen.jpg"
 					},
 					{
 						id:'bedroomTwo_H',
 						connected: 'bedRoomTwo',
 						position: "14.48 1.253 11.65",
 						rotation: "0 47.61 0",
-						src: "assets/panos/bedroomTwo.jpg"
+						src: "./assets/panos/bedroomTwo.jpg"
 					},
 					{
 
@@ -72,14 +72,14 @@ var SCENES = [
 						connected: 'bedRoomOne',
 						position: "11.79 -0.20 14.34",
 						rotation: "0 34.66 0",
-						src: "assets/panos/bedroomOne.jpg"
+						src: "./assets/panos/bedroomOne.jpg"
 					},
 					{
 						id:'guestRoom_H',
 						connected: 'guestRoom',
 						position: "13.55 1.272 2.929",
 						rotation: "0 93.5 0",
-						src: "assets/panos/guestRoom.jpg"
+						src: "./assets/panos/guestRoom.jpg"
 					}
 				],
             download: false
@@ -93,7 +93,7 @@ var SCENES = [
 						connected: 'diningRoom',
 						position: "9.229 -0.31 10.36",
 						rotation: "0 -137 0",
-						src: "assets/panos/diningRoom.jpg"
+						src: "./assets/panos/diningRoom.jpg"
 					}
 				],
             download: false
@@ -107,20 +107,20 @@ var SCENES = [
 						connected: 'CorridorView',
 						position: "5.687 -1.92 11.44",
 						rotation: "0 36.84 0",
-						src: "assets/panos/CorridorView.jpg"
+						src: "./assets/panos/CorridorView.jpg"
 					},
 					{
 						id:'bedroomTwoAnotherView_H',
 						connected: 'bedRoomTwoViewTwo',
 						position: "7.02 -1.92 -11.8",
 						rotation: "0 143.2 0",
-						src: "assets/panos/bedroomTwoAnotherView.jpg"
+						src: "./assets/panos/bedroomTwoAnotherView.jpg"
 					},{
 						id:'bedroomTwoBathroom_H',
 						connected: 'bedRoomTwoBathroom',
 						position: "-14.0 -1.92 -10.8",
 						rotation: "0 -128.0 0",
-						src: "assets/panos/bedroomTwoBathroomView.jpg"
+						src: "./assets/panos/bedroomTwoBathroomView.jpg"
 					}
 				],
             download: false
@@ -134,7 +134,7 @@ var SCENES = [
 						connected: 'bedRoomTwo',
 						position: "-8.91 -1.92 11.85",
 						rotation: "0 -41.8 0",
-						src: "assets/panos/bedroomTwo.jpg"
+						src: "./assets/panos/bedroomTwo.jpg"
 					}
 				],
             download: false
@@ -148,7 +148,7 @@ var SCENES = [
 						connected: 'CorridorView',
 						position: "10.45 1.033 13.56",
 						rotation: "0 51.39 0",
-						src: "assets/panos/CorridorView.jpg"
+						src: "./assets/panos/CorridorView.jpg"
 					}
 				],
             download: false
@@ -162,14 +162,14 @@ var SCENES = [
 						connected: 'bedRoomOneBathroom',
 						position: "-8.10 -0.75 4.833",
 						rotation: "0 -57.8 0",
-						src: "assets/panos/bedroomOneBathroom.jpg"
+						src: "./assets/panos/bedroomOneBathroom.jpg"
 					},
 					{
 						id:'corridorView_H',
 						connected: 'CorridorView',
 						position: "-15.9 0.232 1.012",
 						rotation: "0 -80.3 0",
-						src: "assets/panos/CorridorView.jpg"
+						src: "./assets/panos/CorridorView.jpg"
 					}
 				],
             download: false
@@ -183,7 +183,7 @@ var SCENES = [
 						connected: 'bedRoomOne',
 						position: "6.363 0.055 -6.06",
 						rotation: "0 126.2 0",
-						src: "assets/panos/bedroomOne.jpg"
+						src: "./assets/panos/bedroomOne.jpg"
 					}
 				],
             download: false
@@ -197,7 +197,7 @@ var SCENES = [
 						connected: 'CorridorView',
 						position: "11.61 -0.27 2.413",
 						rotation: "0 104 0",
-						src: "assets/panos/CorridorView.jpg"
+						src: "./assets/panos/CorridorView.jpg"
 					}
 				],
             download: false
@@ -211,7 +211,7 @@ var SCENES = [
 						connected: 'diningRoom',
 						position: "-0.01 -1.92 -10.7",
 						rotation: "0 -180 0",
-						src: "assets/panos/diningRoom.jpg"
+						src: "./assets/panos/diningRoom.jpg"
 					}
 				],
             download: false
@@ -225,31 +225,31 @@ var SCENES = [
                         connected : 'guestRoom',
 						position:'-4.85 -0.83 -6.33',
 						rotation: '0.0 -147.0 0.0',
-                        src: "assets/panos/guestRoom.jpg"
+                        src: "./assets/panos/guestRoom.jpg"
 					},{
 						id:'commonBathRoom_H',
                         connected : 'commonBathRoom',
 						position:'5.95 0.812 8.691',
 						rotation: '0 35.06 0',
-                        src: "assets/panos/commonBathroom.jpg"
+                        src: "./assets/panos/commonBathroom.jpg"
 					},{
 						id:'bedRoomTwo_H',
                         connected : "bedRoomTwo",
 						position:"11.29 -1.33 -18.2",
 						rotation:"0 156.3 0",
-                        src: "assets/panos/bedroomTwo.jpg"
+                        src: "./assets/panos/bedroomTwo.jpg"
 					},{
 						id:'bedRoomOne_H',
                         connected : "bedRoomOne",
 						position:"14.43 1.48 -11.3",
 						rotation:"0 137.6 0",
-                        src: "assets/panos/bedroomOne.jpg"
+                        src: "./assets/panos/bedroomOne.jpg"
 					},{
 						id:'hall',
                         connected : "hall",
 						position:"-10.7 -1.57 9.476",
 						rotation:"0 -50.3 0",
-                        src: "assets/panos/hall.jpg"
+                        src: "./assets/panos/hall.jpg"
 					}
 				],
             download: false
@@ -317,7 +317,7 @@ var renderHotspot = function(hotspot){
 
 /**
  * loads a new scene by replacing old scene and replacing hotspots
- * @param  {[Stirng]} sceneName  [new scene]
+ * @param  {[String]} sceneName  [new scene]
  * @param  {[String]} loadedFrom [old scene]
  */
 var loadScene = function(sceneName,loadedFrom){
@@ -327,7 +327,10 @@ var loadScene = function(sceneName,loadedFrom){
             setTimeout(function() {
                 removeHotspots();
             }, 50);
+
+            document.querySelector('a-sky').setAttribute('color','');
             document.querySelector('a-sky').setAttribute('src',"#" + scene.name);
+
             setTimeout(function() {
                 scene.hotspots.map(function(hotspot){
                     renderHotspot(hotspot);
@@ -458,5 +461,5 @@ $(document).ready(function(){
 	  document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
 	}
 
-	document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
+	// document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
 });
