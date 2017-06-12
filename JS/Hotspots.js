@@ -329,10 +329,15 @@ var loadScene = function(sceneName,loadedFrom){
                 removeHotspots();
             }, 50);
 
-            document.querySelector('a-sky').removeAttribute("src");
-            document.querySelector('a-sky').setAttribute('src',"#" + scene.name);
-            document.querySelector('a-sky').setAttribute('color','');
-            document.querySelector('#loader_entity').setAttribute('visible', false);
+            // set loader to false after all assets are loaded
+            var sky_image = document.getElementById(scene.name);
+            sky_image.addEventListener('load', function() {
+                document.querySelector('#loader_entity').setAttribute('visible', false);
+                var sky = document.querySelector('a-sky');
+                sky.removeAttribute("src");
+                sky.setAttribute('src',"#" + scene.name);
+                sky.setAttribute('color','');
+            });
 
             setTimeout(function() {
                 scene.hotspots.map(function(hotspot){
