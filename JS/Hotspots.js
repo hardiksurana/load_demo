@@ -325,14 +325,10 @@ var loadScene = function(sceneName,loadedFrom){
 	sceneArray.push(sceneName);
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
-            // setTimeout(function() {
-                removeHotspots();
-                // console.log("hotspots removed.");
-            // }, 50);
+            removeHotspots();
 
             var sky = document.querySelector('a-sky');
             var sky_image = document.getElementById(scene.name);
-            var loader = document.querySelector("#loader_entity");
 
             sky.setAttribute('src',"#" + scene.name);
 
@@ -341,23 +337,11 @@ var loadScene = function(sceneName,loadedFrom){
                 preloadImage(hotspot);
             });
 
-
-            var assets = document.querySelector('a-assets');
-            $(assets).addEventListener('loaded', function() {
-                // remove loader after all assets are loaded
-                // sky.removeAttribute("src");
-                loader.setAttribute('visible', false);
-                // sky.setAttribute('color','');
-            });
-
-            // load new hotspots and new scene's images
-            // setTimeout(function() {
-                // scene.hotspots.map(function(hotspot){
-                //     preloadImage(hotspot);
-                //     renderHotspot(hotspot);
-                // });
-                // console.log("images preloaded and hotspots rendered.");
-            // }, 50);
+            sky.addEventListener('materialtextureloaded', function () {
+                setTimeout(function () {
+                    document.querySelector('#loader_entity').setAttribute('visible', false);
+                }, 500);
+              });
 		}
 	});
 }

@@ -35,9 +35,7 @@ AFRAME.registerComponent('set-image', {
             }
         });
         if(sceneToLoad.length > 0) {
-            // document.querySelector('#cursor').emit('animate');
-            // document.querySelector('a-sky').emit('animate');
-
+            document.querySelector('#cursor').emit('animate');
             var position = getReticlePosition();
             document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
             document.querySelector('#loader_entity').setAttribute('visible', true);
