@@ -294,7 +294,7 @@ var preloadImage = function(hotspot) {
         img.id = newSceneId;
         document.querySelector('a-assets').appendChild(img);
         SCENES[num].download = true;
-        console.log(document.querySelectorAll('a-assets'));
+        // console.log(document.querySelectorAll('a-assets'));
     }
 }
 
@@ -325,23 +325,26 @@ var loadScene = function(sceneName,loadedFrom){
 	sceneArray.push(sceneName);
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
-            // setTimeout(function() {
+            setTimeout(function() {
                 removeHotspots();
-            // }, 50);
+                console.log("hotspots removed.");
+            }, 50);
 
-            console.log("hotspots removed.");
+            var sky = document.querySelector('a-sky');
+            sky.removeAttribute("src");
+
             var sky_image = document.getElementById(scene.name);
-            console.log(sky_image);
-            sky_image.addEventListener('load', function() {
-                // remove loader after all assets are loaded
-
-                console.log("images loaded.");
-                document.querySelector('#loader_entity').setAttribute('visible', false);
-                console.log("loader made false.");
+            var loader = document.querySelector("#loader_entity");
+            sky_image.addEventListener("load", function() {
                 
+                // remove loader after all assets are loaded
+                console.log("images loaded.");
+                console.log("loader = " + loader);
+                loader.setAttribute('visible', false);
+                console.log("loader made false.");
+                console.log("loader = " + loader);
+
                 // set new sky
-                var sky = document.querySelector('a-sky');
-                sky.removeAttribute("src");
                 sky.setAttribute('src',"#" + scene.name);
                 sky.setAttribute('color','');
                 console.log("sky changed.");

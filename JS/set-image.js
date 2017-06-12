@@ -29,9 +29,10 @@ AFRAME.registerComponent('set-image', {
             document.querySelector('#loader_entity').setAttribute('visible', true);
 
             console.log("loader made visible.");
+            console.log("loader" + document.querySelector("#loader_entity"));
             setTimeout(function() {
                 loadScene(sceneToLoad[0].name,this);
-            }, 1000);
+            }, 5000);
         }
     });
   },
