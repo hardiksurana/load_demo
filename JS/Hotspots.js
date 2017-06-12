@@ -325,7 +325,7 @@ var loadScene = function(sceneName,loadedFrom){
 	sceneArray.push(sceneName);
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
-            removeHotspots();
+            // removeHotspots();
 
             var sky = document.querySelector('a-sky');
             var sky_image = document.getElementById(scene.name);
@@ -339,6 +339,7 @@ var loadScene = function(sceneName,loadedFrom){
 
             sky.addEventListener('materialtextureloaded', function () {
                 setTimeout(function () {
+                    document.querySelector('a-sky').setAttribute('color','');
                     document.querySelector('#loader_entity').setAttribute('visible', false);
                 }, 500);
               });

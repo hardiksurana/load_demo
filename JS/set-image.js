@@ -38,8 +38,10 @@ AFRAME.registerComponent('set-image', {
             document.querySelector('#cursor').emit('animate');
             var position = getReticlePosition();
             document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
-            document.querySelector('#loader_entity').setAttribute('visible', true);
 
+            removeHotspots();
+            document.querySelector('#loader_entity').setAttribute('visible', true);
+            document.querySelector('a-sky').setAttribute('color','#293f59');
             loadScene(sceneToLoad[0].name,this);
         }
     });
