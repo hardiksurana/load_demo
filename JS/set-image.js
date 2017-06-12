@@ -1,3 +1,14 @@
+var getReticlePosition = function(){
+      var e;
+      var t = document.querySelector("#camera").object3D,
+      n = new THREE.Vector3(t.position.x,t.position.y,t.position.z);
+      e = new THREE.Vector3(0,0,(-10)),
+      e.addVectors(e, n),
+      e.applyAxisAngle(new THREE.Vector3(0,0,1), t.rotation._z),
+      e.applyAxisAngle(new THREE.Vector3(1,0,0), t.rotation._x),
+      e.applyAxisAngle(new THREE.Vector3(0,1,0), t.rotation._y)
+      return e
+}
 /* global AFRAME */
 
 /**
@@ -26,13 +37,12 @@ AFRAME.registerComponent('set-image', {
         if(sceneToLoad.length > 0) {
             // document.querySelector('#cursor').emit('animate');
             // document.querySelector('a-sky').emit('animate');
+
+            var position = getReticlePosition();
+            document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
             document.querySelector('#loader_entity').setAttribute('visible', true);
 
-            console.log("loader made visible.");
-            console.log("loader" + document.querySelector("#loader_entity"));
-            setTimeout(function() {
-                loadScene(sceneToLoad[0].name,this);
-            }, 5000);
+            loadScene(sceneToLoad[0].name,this);
         }
     });
   },

@@ -325,35 +325,39 @@ var loadScene = function(sceneName,loadedFrom){
 	sceneArray.push(sceneName);
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
-            setTimeout(function() {
+            // setTimeout(function() {
                 removeHotspots();
-                console.log("hotspots removed.");
-            }, 50);
+                // console.log("hotspots removed.");
+            // }, 50);
 
             var sky = document.querySelector('a-sky');
             var sky_image = document.getElementById(scene.name);
             var loader = document.querySelector("#loader_entity");
 
-            $(sky_image).on('load', function() {
-                // remove loader after all assets are loaded
-                loader.setAttribute('visible', false);
-                console.log("loader made false.");
+            sky.setAttribute('src',"#" + scene.name);
 
-                // set new sky
-                sky.removeAttribute("src");
-                sky.setAttribute('src',"#" + scene.name);
-                sky.setAttribute('color','');
-                console.log("sky changed.");
+            scene.hotspots.map(function(hotspot){
+                renderHotspot(hotspot);
+                preloadImage(hotspot);
+            });
+
+
+            var assets = document.querySelector('a-assets');
+            $(assets).addEventListener('loaded', function() {
+                // remove loader after all assets are loaded
+                // sky.removeAttribute("src");
+                loader.setAttribute('visible', false);
+                // sky.setAttribute('color','');
             });
 
             // load new hotspots and new scene's images
-            setTimeout(function() {
-                scene.hotspots.map(function(hotspot){
-                    preloadImage(hotspot);
-                    renderHotspot(hotspot);
-                });
-                console.log("images preloaded and hotspots rendered.");
-            }, 50);
+            // setTimeout(function() {
+                // scene.hotspots.map(function(hotspot){
+                //     preloadImage(hotspot);
+                //     renderHotspot(hotspot);
+                // });
+                // console.log("images preloaded and hotspots rendered.");
+            // }, 50);
 		}
 	});
 }
