@@ -331,20 +331,16 @@ var loadScene = function(sceneName,loadedFrom){
             }, 50);
 
             var sky = document.querySelector('a-sky');
-            sky.removeAttribute("src");
-
             var sky_image = document.getElementById(scene.name);
             var loader = document.querySelector("#loader_entity");
-            sky_image.addEventListener("loaded", function() {
 
+            $(sky_image).load(function() {
                 // remove loader after all assets are loaded
-                console.log("images loaded.");
-                console.log("loader = " + loader);
                 loader.setAttribute('visible', false);
                 console.log("loader made false.");
-                console.log("loader = " + loader);
 
                 // set new sky
+                sky.removeAttribute("src");
                 sky.setAttribute('src',"#" + scene.name);
                 sky.setAttribute('color','');
                 console.log("sky changed.");
