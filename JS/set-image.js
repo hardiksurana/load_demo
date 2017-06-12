@@ -28,6 +28,7 @@ AFRAME.registerComponent('set-image', {
             // document.querySelector('a-sky').emit('animate');
             document.querySelector('#loader_entity').setAttribute('visible', true);
 
+            console.log("loader made visible.");
             setTimeout(function() {
                 loadScene(sceneToLoad[0].name,this);
             }, 1000);
