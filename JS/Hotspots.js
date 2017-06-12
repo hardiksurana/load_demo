@@ -325,26 +325,35 @@ var loadScene = function(sceneName,loadedFrom){
 	sceneArray.push(sceneName);
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
-            setTimeout(function() {
-                removeHotspots();
-            }, 50);
+            // setTimeout(function() {
+                // removeHotspots();
+            // }, 50);
 
-            // set loader to false after all assets are loaded
+            // remove current scene's hotspots
+            document.querySelectorAll('.hotspotClass').forEach(function(hotspot){
+        		hotspot.parentNode.remove(hotspot);
+        	});
+
             var sky_image = document.getElementById(scene.name);
             sky_image.addEventListener('load', function() {
+                // remove loader after all assets are loaded
                 document.querySelector('#loader_entity').setAttribute('visible', false);
+
+                // set new sky
                 var sky = document.querySelector('a-sky');
                 sky.removeAttribute("src");
                 sky.setAttribute('src',"#" + scene.name);
                 sky.setAttribute('color','');
-            });
 
-            setTimeout(function() {
-                scene.hotspots.map(function(hotspot){
-                    preloadImage(hotspot);
-                    renderHotspot(hotspot);
-                });
-            }, 50);
+                // load new hotspots and new scene's images
+                setTimeout(function() {
+                    scene.hotspots.map(function(hotspot){
+                        preloadImage(hotspot);
+                        renderHotspot(hotspot);
+                    });
+                }, 50);
+                
+            });
 		}
 	});
 }
