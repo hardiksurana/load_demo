@@ -335,8 +335,8 @@ var loadScene = function(sceneName,loadedFrom){
 
             var sky_image = document.getElementById(scene.name);
             var loader = document.querySelector("#loader_entity");
-            sky_image.addEventListener("load", function() {
-                
+            sky_image.addEventListener("loaded", function() {
+
                 // remove loader after all assets are loaded
                 console.log("images loaded.");
                 console.log("loader = " + loader);
