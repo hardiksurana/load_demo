@@ -329,9 +329,10 @@ var loadScene = function(sceneName,loadedFrom){
                 removeHotspots();
             }, 50);
 
-            document.querySelector('#loader_entity').setAttribute('visible', false);
+            document.querySelector('a-sky').removeAttribute("src");
             document.querySelector('a-sky').setAttribute('src',"#" + scene.name);
             document.querySelector('a-sky').setAttribute('color','');
+            document.querySelector('#loader_entity').setAttribute('visible', false);
 
             setTimeout(function() {
                 scene.hotspots.map(function(hotspot){
@@ -350,7 +351,6 @@ var removeHotspots = function(){
 	document.querySelectorAll('.hotspotClass').forEach(function(hotspot){
 		hotspot.parentNode.remove(hotspot);
 	});
-    document.querySelector('a-sky').removeAttribute("src");
 }
 
 /**

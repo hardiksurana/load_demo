@@ -15,7 +15,7 @@ AFRAME.registerComponent('set-image', {
   init: function () {
     var data = this.data;
     var el = this.el;
-    el.addEventListener("click",function (event) {
+    el.addEventListener("click", function (event) {
 
         var loadSceneName = this.parentEl.dataset.src;
         var sceneToLoad = SCENES.filter(function(scene){
@@ -24,7 +24,7 @@ AFRAME.registerComponent('set-image', {
             }
         });
         if(sceneToLoad.length > 0) {
-            document.querySelector('#cursor').emit('animate');
+            // document.querySelector('#cursor').emit('animate');
             // document.querySelector('a-sky').emit('animate');
             document.querySelector('#loader_entity').setAttribute('visible', true);
 
