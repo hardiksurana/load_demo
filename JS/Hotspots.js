@@ -330,7 +330,7 @@ var loadScene = function(sceneName,loadedFrom){
             var sky = document.querySelector('a-sky');
             var sky_image = document.getElementById(scene.name);
 
-            sky.setAttribute('src',"#" + scene.name);
+            // sky.setAttribute('src',"#" + scene.name);
 
             scene.hotspots.map(function(hotspot){
                 renderHotspot(hotspot);
