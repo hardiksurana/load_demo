@@ -258,6 +258,46 @@ var SCENES = [
 
 
 var sceneArray = [];
+var ImgArray = [];
+
+/*
+var InitialAssets = [
+    {
+        "id": "houseEntrance",
+        "src": "./assets/panos/houseEntrance.jpg"
+    }, {
+        "id": "start",
+        "src": "./assets/panos/start.jpg"
+    }, {
+        "id": "hotspot",
+        "src": "./assets/img/hotspot.png"
+    }, {
+        "id": "mcLogo",
+        "src": "./assets/logos/machani.png"
+    }, {
+        "id": "machani",
+        "src": "./assets/img/machaniLogo.png"
+    }, {
+        "id": "scapic",
+        "src": "./assets/img/scapic.png"
+    }, {
+        "id": "startButton",
+        "src": "./assets/img/startExperience.png"
+    }, {
+        "id": "backButton",
+        "src": "./assets/img/goBack.png"
+    }, {
+        "id": "homeButton",
+        "src": "./assets/img/homeButton.png"
+    }, {
+        "id": "aboutScapic",
+        "src": "./assets/img/aboutScapic.png"
+    }, {
+        "id": "aboutMachani",
+        "src": "./assets/img/aboutMachani.png"
+    }
+];
+*/
 
 /**
  * finds scene in SCENES json array
@@ -325,8 +365,6 @@ var loadScene = function(sceneName,loadedFrom){
 	sceneArray.push(sceneName);
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
-            // removeHotspots();
-
             var sky = document.querySelector('a-sky');
             var sky_image = document.getElementById(scene.name);
 
@@ -357,16 +395,56 @@ var removeHotspots = function(){
 }
 
 /**
+ * downloads initial assets for 1st 2 scenes
+ * @param  {[Array]} assetsArray [contains json of all intial assets with id and src for each]
+ */
+/*
+var downloadInitialAssets = function(assetsArray) {
+    for (var i = 0; i < assetsArray.length; i++) {
+        var img = new Image();
+        img.id = assetsArray[i].id;
+        img.src = assetsArray[i].src;
+        ImgArray.push(img);
+    }
+}
+*/
+
+/**
+ * gets current position of cursor
+ * @return {[json]} [array of position coordinates]
+ */
+var getReticlePosition = function(){
+      var e;
+      var t = document.querySelector("#camera").object3D,
+      n = new THREE.Vector3(t.position.x,t.position.y,t.position.z);
+      e = new THREE.Vector3(0,0,(-10)),
+      e.addVectors(e, n),
+      e.applyAxisAngle(new THREE.Vector3(0,0,1), t.rotation._z),
+      e.applyAxisAngle(new THREE.Vector3(1,0,0), t.rotation._x),
+      e.applyAxisAngle(new THREE.Vector3(0,1,0), t.rotation._y)
+      return e
+}
+
+/**
  * plays required audio on rendering first scene
  */
 var startExp = function(){
-	document.querySelector('#startScreen').emit('start');
-	document.querySelector('#startScreen').setAttribute('visible',false);
-	document.querySelector('#startScreen2').setAttribute('visible',false);
+    document.querySelector('#startScreen').emit('start');
+    document.querySelector('#startScreen').setAttribute('visible',false);
+    document.querySelector('#startScreen2').setAttribute('visible',false);
+
+    var position = getReticlePosition();
+    document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
+    document.querySelector('#loader_entity').setAttribute('visible', true);
+    document.querySelector('a-sky').setAttribute('color','#293f59');
+
+    // downloadInitialAssets(InitialAssets);
+
 	document.querySelector('#welcomeScapic').play();
 	document.querySelectorAll('.experienceScreen').forEach(function(value){
 		value.setAttribute('visible',true);
 	});
+
 	loadScene('houseEntrance');
 }
 
