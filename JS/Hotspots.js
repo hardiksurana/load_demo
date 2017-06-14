@@ -258,6 +258,7 @@ var SCENES = [
 
 
 var sceneArray = [];
+var ImgArray = [];
 
 /**
  * finds scene in SCENES json array
@@ -292,9 +293,11 @@ var preloadImage = function(hotspot) {
 
         img.src = newSceneImgUrl;
         img.id = newSceneId;
+        ImgArray.push(img);
         document.querySelector('a-assets').appendChild(img);
         SCENES[num].download = true;
-        // console.log(document.querySelectorAll('a-assets'));
+    } else {
+        console.log("image is already downloaded.");
     }
 }
 
@@ -325,12 +328,10 @@ var loadScene = function(sceneName,loadedFrom){
 	sceneArray.push(sceneName);
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
-            // removeHotspots();
-
             var sky = document.querySelector('a-sky');
             var sky_image = document.getElementById(scene.name);
 
-            // sky.setAttribute('src',"#" + scene.name);
+            sky.setAttribute('src',"#" + scene.name);
 
             scene.hotspots.map(function(hotspot){
                 renderHotspot(hotspot);
@@ -339,7 +340,7 @@ var loadScene = function(sceneName,loadedFrom){
 
             sky.addEventListener('materialtextureloaded', function () {
                 setTimeout(function () {
-                    document.querySelector('a-sky').setAttribute('color','');
+                    sky.setAttribute('color', '');
                     document.querySelector('#loader_entity').setAttribute('visible', false);
                 }, 500);
               });
@@ -352,7 +353,7 @@ var loadScene = function(sceneName,loadedFrom){
  */
 var removeHotspots = function(){
 	document.querySelectorAll('.hotspotClass').forEach(function(hotspot){
-		hotspot.parentNode.remove(hotspot);
+		hotspot.parentNode.removeChild(hotspot);
 	});
 }
 
