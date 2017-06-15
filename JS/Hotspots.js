@@ -319,6 +319,20 @@ var renderHotspot = function(hotspot){
 }
 
 
+var renderAnimationOrLoader = function(e) {
+    console.log(e);
+    if(ImgSet.has(e.target.myParam)) {
+        fadeAnimation(0, 1, 1000);
+    } else {
+        document.querySelector('a-sky').setAttribute('color', '');
+        document.querySelector('#loader_entity').setAttribute('visible', false);
+    }
+
+    document.querySelector('a-sky').removeEventListener('materialtextureloaded', renderAnimationOrLoader);
+}
+
+
+
 /**
  * loads a new scene by replacing old scene and replacing hotspots
  * @param  {[String]} sceneName  [new scene]
@@ -342,18 +356,8 @@ var loadScene = function(sceneName,loadedFrom){
             preloadImage(hotspot);
         });
 
-        sky.addEventListener('materialtextureloaded', function (e) {
-                console.log(e);
-                if(ImgSet.has(sceneToLoad[0].name)) {
-                    fadeAnimation(0, 1, 1000);
-                } else {
-                    sky.setAttribute('color', '');
-                    document.querySelector('#loader_entity').setAttribute('visible', false);
-                }
-        });
-        sky.removeEventListener('materialtextureloaded', function() {
-            console.log("event listener removed");
-        });
+        sky.addEventListener('materialtextureloaded', renderAnimationOrLoader);
+        sky.addParam = sceneToLoad[0].name;
     }
 
 /*
