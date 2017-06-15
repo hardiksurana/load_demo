@@ -327,14 +327,6 @@ var renderAnimationOrLoader = function(sceneName) {
         document.querySelector('a-sky').setAttribute('color', '');
         document.querySelector('#loader_entity').setAttribute('visible', false);
     }
-
-    setTimeout(function() {
-        sceneToLoad[0].hotspots.map(function(hotspot){
-            renderHotspot(hotspot);
-            preloadImage(hotspot);
-        });
-    }, 1000);
-
     document.querySelector('a-sky').removeEventListener('materialtextureloaded', renderAnimationOrLoader);
 }
 
@@ -367,6 +359,13 @@ var loadScene = function(sceneName,loadedFrom){
 
         sky.addEventListener('materialtextureloaded', function(){
             renderAnimationOrLoader(sceneToLoad[0].name);
+
+            setTimeout(function() {
+                sceneToLoad[0].hotspots.map(function(hotspot){
+                    renderHotspot(hotspot);
+                    preloadImage(hotspot);
+                });
+            }, 1000);
         });
     }
 }
