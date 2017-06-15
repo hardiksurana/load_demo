@@ -341,8 +341,8 @@ var loadScene = function(sceneName,loadedFrom){
 
             sky.addEventListener('materialtextureloaded', function () {
                     if(ImgSet.has(sceneName)) {
-                        fadeAnimation(1, 0, 500);
-                        fadeAnimation(0, 1, 500);
+                        fadeAnimation(1, 0, 1000);
+                        fadeAnimation(0, 1, 1000);
                     } else {
                         sky.setAttribute('color', '');
                         document.querySelector('#loader_entity').setAttribute('visible', false);
