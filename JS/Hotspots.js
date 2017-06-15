@@ -327,6 +327,32 @@ var renderHotspot = function(hotspot){
 var loadScene = function(sceneName,loadedFrom){
 	currentScene = sceneName;
 
+    var sceneToLoad = SCENES.filter(function(scene){
+        if(scene.name === currentScene){
+            return scene;
+        }
+    });
+
+    if(sceneToLoad.length > 0) {
+        var sky = document.querySelector('a-sky');
+        sky.setAttribute('src',"#" + sceneToLoad[0].name);
+
+        sceneToLoad[0].hotspots.map(function(hotspot){
+            renderHotspot(hotspot);
+            preloadImage(hotspot);
+        });
+
+        sky.addEventListener('materialtextureloaded', function () {
+                if(ImgSet.has(sceneToLoad[0].name)) {
+                    fadeAnimation(0, 1, 1000);
+                } else {
+                    sky.setAttribute('color', '');
+                    document.querySelector('#loader_entity').setAttribute('visible', false);
+                }
+        });
+    }
+
+/*
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
             var sky = document.querySelector('a-sky');
@@ -347,6 +373,8 @@ var loadScene = function(sceneName,loadedFrom){
               });
 		}
 	});
+*/
+
 }
 
 /**
