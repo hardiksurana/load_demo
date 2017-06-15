@@ -35,9 +35,6 @@ AFRAME.registerComponent('set-image', {
                 document.querySelector('#loader_entity').setAttribute('visible', true);
                 document.querySelector('a-sky').setAttribute('color','#293f59');
             }
-            // else {
-            //     fadeAnimation(1, 0, 1000);
-            // }
 
             loadScene(sceneToLoad[0].name, this);
         }
