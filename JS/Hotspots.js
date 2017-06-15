@@ -325,7 +325,7 @@ var renderHotspot = function(hotspot){
  * @param  {[String]} loadedFrom [old scene]
  */
 var loadScene = function(sceneName,loadedFrom){
-	currentScene = sceneName; 
+	currentScene = sceneName;
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
             var sky = document.querySelector('a-sky');
@@ -336,6 +336,13 @@ var loadScene = function(sceneName,loadedFrom){
                 fadeAnimation(1, 0, 1000);
             }
 
+            // render hotspots
+            scene.hotspots.map(function(hotspot){
+                renderHotspot(hotspot);
+                preloadImage(hotspot);
+            });
+
+
             sky.addEventListener('materialtextureloaded', function () {
                     if(ImgSet.has(sceneName)) {
                         // fadeIn animation
@@ -345,11 +352,6 @@ var loadScene = function(sceneName,loadedFrom){
                         document.querySelector('#loader_entity').setAttribute('visible', false);
                     }
 
-                    // render hotspots
-                    scene.hotspots.map(function(hotspot){
-                        renderHotspot(hotspot);
-                        preloadImage(hotspot);
-                    });
 
               });
 		}
