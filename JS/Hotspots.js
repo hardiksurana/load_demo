@@ -350,6 +350,8 @@ var loadScene = function(sceneName,loadedFrom){
                     sky.setAttribute('color', '');
                     document.querySelector('#loader_entity').setAttribute('visible', false);
                 }
+
+                sky.removeEventListener('materialtextureloaded', function() {});
         });
     }
 
