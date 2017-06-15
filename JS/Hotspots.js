@@ -342,7 +342,8 @@ var loadScene = function(sceneName,loadedFrom){
             preloadImage(hotspot);
         });
 
-        sky.addEventListener('materialtextureloaded', function () {
+        sky.addEventListener('materialtextureloaded', function (e) {
+                console.log(e);
                 if(ImgSet.has(sceneToLoad[0].name)) {
                     fadeAnimation(0, 1, 1000);
                 } else {
