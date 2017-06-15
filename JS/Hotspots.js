@@ -331,19 +331,24 @@ var loadScene = function(sceneName,loadedFrom){
             var sky = document.querySelector('a-sky');
             sky.setAttribute('src',"#" + scene.name);
 
-            scene.hotspots.map(function(hotspot){
-                renderHotspot(hotspot);
-                preloadImage(hotspot);
-            });
+            // fadeOut animation
+            fadeAnimation(1, 0, 1000);
 
             sky.addEventListener('materialtextureloaded', function () {
                     if(ImgSet.has(sceneName)) {
-                        fadeAnimation(1, 0, 1000);
+                        // fadeIn animation
                         fadeAnimation(0, 1, 1000);
                     } else {
                         sky.setAttribute('color', '');
                         document.querySelector('#loader_entity').setAttribute('visible', false);
                     }
+
+                    // render hotspots
+                    scene.hotspots.map(function(hotspot){
+                        renderHotspot(hotspot);
+                        preloadImage(hotspot);
+                    });
+
               });
 		}
 	});

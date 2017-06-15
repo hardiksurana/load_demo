@@ -13,10 +13,8 @@ function fadeAnimation(opacity_old, opacity_new, animation_time){
  	}
 
  	for(var i=0; i<sky.length; i++){
- 		if(validEntity(sky[i])){
- 			console.log("entered");
+ 		if(validEntity(sky[i]))
  			sky[i].setAttribute('material','opacity', opacity_old);
- 		}
  	}
 
  	for(var i=0; i<entities.length; i++){
