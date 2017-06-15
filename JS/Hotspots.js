@@ -340,14 +340,13 @@ var loadScene = function(sceneName,loadedFrom){
             });
 
             sky.addEventListener('materialtextureloaded', function () {
-                // setTimeout(function () {
                     if(ImgSet.has(sceneName)) {
-                        fadeAnimation(0, 1);
+                        fadeAnimation(1, 0, 500);
+                        fadeAnimation(0, 1, 500);
                     } else {
                         sky.setAttribute('color', '');
                         document.querySelector('#loader_entity').setAttribute('visible', false);
                     }
-                // }, 500);
               });
 		}
 	});
