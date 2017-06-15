@@ -357,12 +357,13 @@ var loadScene = function(sceneName,loadedFrom){
         // });
 
         sky.addEventListener('materialtextureloaded', function(){
+            renderAnimationOrLoader(sceneToLoad[0].name);
+
             sceneToLoad[0].hotspots.map(function(hotspot){
                 renderHotspot(hotspot);
                 preloadImage(hotspot);
             });
 
-            renderAnimationOrLoader(sceneToLoad[0].name);
         });
     }
 
