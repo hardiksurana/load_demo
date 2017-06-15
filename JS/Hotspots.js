@@ -289,17 +289,15 @@ var preloadImage = function(hotspot) {
     if(SCENES[num].download == false) {
         var img = new Image();
         var newSceneId = hotspot.connected;
-        var newSceneImgUrl = hotspot.src;
-
-        img.src = newSceneImgUrl;
+        img.src = hotspot.src;
         img.id = newSceneId;
 
-        ImgSet.add(newSceneId);
         document.querySelector('a-assets').appendChild(img);
 
-        document.querySelector('a-assets').addEventListener('loaded', function() {
+        document.querySelector('#' + newSceneId).addEventListener('load', function() {
             console.log("all assets are loaded. inside event listener.");
             SCENES[num].download = true;
+            ImgSet.add(newSceneId);
         });
     } else {
         console.log("image is already downloaded.");
@@ -343,7 +341,7 @@ var loadScene = function(sceneName,loadedFrom){
 
             sky.addEventListener('materialtextureloaded', function () {
                 setTimeout(function () {
-                    if(/* ImgSet.has(sceneName)*/ scene.download === true) {
+                    if(ImgSet.has(sceneName)) {
                         fadeAnimation(0, 1);
                     } else {
                         sky.setAttribute('color', '');

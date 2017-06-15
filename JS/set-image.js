@@ -42,7 +42,7 @@ AFRAME.registerComponent('set-image', {
 
             removeHotspots();
 
-            if( /* ImgSet.has(loadSceneName) */ sceneToLoad[0].download === true) {
+            if(ImgSet.has(loadSceneName)) {
                 console.log("animation shown. image already downloaded");
                 fadeAnimation(1, 0);
             } else {
