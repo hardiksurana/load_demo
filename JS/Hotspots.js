@@ -326,29 +326,24 @@ var renderHotspot = function(hotspot){
  */
 var loadScene = function(sceneName,loadedFrom){
 	currentScene = sceneName;
+
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
             var sky = document.querySelector('a-sky');
             sky.setAttribute('src',"#" + scene.name);
 
-            // fadeOut animation
-            if(ImgSet.has(sceneName)) {
-                fadeAnimation(1, 0, 3000);
-            }
+            scene.hotspots.map(function(hotspot){
+                renderHotspot(hotspot);
+                preloadImage(hotspot);
+            });
 
             sky.addEventListener('materialtextureloaded', function () {
-                scene.hotspots.map(function(hotspot){
-                    renderHotspot(hotspot);
-                    preloadImage(hotspot);
-                });
-
-                if(ImgSet.has(sceneName)) {
-                    // fadeIn animation
-                    fadeAnimation(0, 1, 3000);
-                } else {
-                    sky.setAttribute('color', '');
-                    document.querySelector('#loader_entity').setAttribute('visible', false);
-                }
+                    if(ImgSet.has(sceneName)) {
+                        fadeAnimation(0, 1, 1000);
+                    } else {
+                        sky.setAttribute('color', '');
+                        document.querySelector('#loader_entity').setAttribute('visible', false);
+                    }
               });
 		}
 	});
