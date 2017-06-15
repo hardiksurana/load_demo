@@ -44,7 +44,7 @@ AFRAME.registerComponent('set-image', {
 
             if(ImgSet.has(loadSceneName)) {
                 console.log("animation shown. image already downloaded");
-                fadeAnimation(1, 0);
+                // fadeAnimation(1, 0);
             } else {
                 console.log("loader shown. image downloaded now.");
                 document.querySelector('#loader_entity').setAttribute('visible', true);
