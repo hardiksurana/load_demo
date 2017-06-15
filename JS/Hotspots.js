@@ -285,17 +285,17 @@ var findScene = function(sceneName) {
  * set download flag as true to prevent re-download
  */
 var preloadImage = function(hotspot) {
-    var num = findScene(hotspot.connected);
-    if(SCENES[num].download == false) {
+    var newSceneId = hotspot.connected;
+    var num = findScene(newSceneId);
+    if(!ImgSet.has(newSceneId)) {
         var img = new Image();
-        var newSceneId = hotspot.connected;
         img.src = hotspot.src;
         img.id = newSceneId;
 
         document.querySelector('a-assets').appendChild(img);
 
         document.querySelector('#' + newSceneId).addEventListener('load', function() {
-            SCENES[num].download = true;
+            // SCENES[num].download = true;
             ImgSet.add(newSceneId);
         });
     }
@@ -321,8 +321,8 @@ var renderHotspot = function(hotspot){
 
 var renderAnimationOrLoader = function(sceneName) {
     if(ImgSet.has(sceneName)) {
-        fadeAnimation(1, 0, 3000);
-        fadeAnimation(0, 1, 3000);
+        fadeAnimation(1, 0, 2000);
+        fadeAnimation(0, 1, 2000);
     } else {
         document.querySelector('a-sky').setAttribute('color', '');
         document.querySelector('#loader_entity').setAttribute('visible', false);
@@ -358,39 +358,10 @@ var loadScene = function(sceneName,loadedFrom){
 
         sky.addEventListener('materialtextureloaded', function(){
             renderAnimationOrLoader(sceneToLoad[0].name);
-
-            // sceneToLoad[0].hotspots.map(function(hotspot){
-            //     renderHotspot(hotspot);
-            //     preloadImage(hotspot);
-            // });
-
         });
     }
-
-/*
-	SCENES.map(function(scene){
-		if(scene.name === sceneName){
-            var sky = document.querySelector('a-sky');
-            sky.setAttribute('src',"#" + scene.name);
-
-            scene.hotspots.map(function(hotspot){
-                renderHotspot(hotspot);
-                preloadImage(hotspot);
-            });
-
-            sky.addEventListener('materialtextureloaded', function () {
-                    if(ImgSet.has(sceneName)) {
-                        fadeAnimation(0, 1, 1000);
-                    } else {
-                        sky.setAttribute('color', '');
-                        document.querySelector('#loader_entity').setAttribute('visible', false);
-                    }
-              });
-		}
-	});
-*/
-
 }
+
 
 /**
  * removes all hotspots of old scene
