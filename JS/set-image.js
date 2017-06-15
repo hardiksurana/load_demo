@@ -41,7 +41,7 @@ AFRAME.registerComponent('set-image', {
 
             removeHotspots();
 
-            if(ImgArray.has(loadSceneName)) {
+            if(ImgSet.has(loadSceneName)) {
                 // fadeOut();
                 fadeAnimation(1, 0);
             } else {
