@@ -319,9 +319,9 @@ var renderHotspot = function(hotspot){
 }
 
 
-var renderAnimationOrLoader = function(e) {
+var renderAnimationOrLoader = function(sceneName) {
     console.log(e);
-    if(ImgSet.has(e.target.myParam)) {
+    if(ImgSet.has(sceneName)) {
         fadeAnimation(1, 0, 3000);
         fadeAnimation(0, 1, 3000);
     } else {
@@ -357,8 +357,9 @@ var loadScene = function(sceneName,loadedFrom){
             preloadImage(hotspot);
         });
 
-        sky.addEventListener('materialtextureloaded', renderAnimationOrLoader);
-        sky.addParam = sceneToLoad[0].name;
+        sky.addEventListener('materialtextureloaded', function(){
+            renderAnimationOrLoader(sceneToLoad[0].name);
+        });
     }
 
 /*
