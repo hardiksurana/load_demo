@@ -351,12 +351,17 @@ var loadScene = function(sceneName,loadedFrom){
         var sky = document.querySelector('a-sky');
         sky.setAttribute('src',"#" + sceneToLoad[0].name);
 
-        sceneToLoad[0].hotspots.map(function(hotspot){
-            renderHotspot(hotspot);
-            preloadImage(hotspot);
-        });
+        // sceneToLoad[0].hotspots.map(function(hotspot){
+        //     renderHotspot(hotspot);
+        //     preloadImage(hotspot);
+        // });
 
         sky.addEventListener('materialtextureloaded', function(){
+            sceneToLoad[0].hotspots.map(function(hotspot){
+                renderHotspot(hotspot);
+                preloadImage(hotspot);
+            });
+
             renderAnimationOrLoader(sceneToLoad[0].name);
         });
     }
