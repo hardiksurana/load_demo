@@ -295,12 +295,9 @@ var preloadImage = function(hotspot) {
         document.querySelector('a-assets').appendChild(img);
 
         document.querySelector('#' + newSceneId).addEventListener('load', function() {
-            console.log("all assets are loaded. inside event listener.");
             SCENES[num].download = true;
             ImgSet.add(newSceneId);
         });
-    } else {
-        console.log("image is already downloaded.");
     }
 }
 
