@@ -257,47 +257,8 @@ var SCENES = [
 		];
 
 
-var sceneArray = [];
-var ImgArray = [];
-
-/*
-var InitialAssets = [
-    {
-        "id": "houseEntrance",
-        "src": "./assets/panos/houseEntrance.jpg"
-    }, {
-        "id": "start",
-        "src": "./assets/panos/start.jpg"
-    }, {
-        "id": "hotspot",
-        "src": "./assets/img/hotspot.png"
-    }, {
-        "id": "mcLogo",
-        "src": "./assets/logos/machani.png"
-    }, {
-        "id": "machani",
-        "src": "./assets/img/machaniLogo.png"
-    }, {
-        "id": "scapic",
-        "src": "./assets/img/scapic.png"
-    }, {
-        "id": "startButton",
-        "src": "./assets/img/startExperience.png"
-    }, {
-        "id": "backButton",
-        "src": "./assets/img/goBack.png"
-    }, {
-        "id": "homeButton",
-        "src": "./assets/img/homeButton.png"
-    }, {
-        "id": "aboutScapic",
-        "src": "./assets/img/aboutScapic.png"
-    }, {
-        "id": "aboutMachani",
-        "src": "./assets/img/aboutMachani.png"
-    }
-];
-*/
+var currentScene = '';
+var ImgSet = new Set();
 
 /**
  * finds scene in SCENES json array
@@ -318,7 +279,7 @@ var findScene = function(sceneName) {
 
 
 /**
- * Search for hotspots from currentScene
+ * Search for hotspots from curren scene
  * get ID and src for each hotspot
  * add the images to <a-assets>
  * set download flag as true to prevent re-download
@@ -332,9 +293,13 @@ var preloadImage = function(hotspot) {
 
         img.src = newSceneImgUrl;
         img.id = newSceneId;
+
+        ImgSet.add(newSceneId);
         document.querySelector('a-assets').appendChild(img);
+
         SCENES[num].download = true;
-        // console.log(document.querySelectorAll('a-assets'));
+    } else {
+        console.log("image is already downloaded.");
     }
 }
 
@@ -362,12 +327,10 @@ var renderHotspot = function(hotspot){
  * @param  {[String]} loadedFrom [old scene]
  */
 var loadScene = function(sceneName,loadedFrom){
-	sceneArray.push(sceneName);
+	currentScene = sceneName;
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
             var sky = document.querySelector('a-sky');
-            var sky_image = document.getElementById(scene.name);
-
             sky.setAttribute('src',"#" + scene.name);
 
             scene.hotspots.map(function(hotspot){
@@ -377,8 +340,13 @@ var loadScene = function(sceneName,loadedFrom){
 
             sky.addEventListener('materialtextureloaded', function () {
                 setTimeout(function () {
-                    document.querySelector('a-sky').setAttribute('color','');
-                    document.querySelector('#loader_entity').setAttribute('visible', false);
+                    if(ImgSet.has(sceneName)) {
+                        // fadeIn();
+                        fadeAnimation(0, 1);
+                    } else {
+                        sky.setAttribute('color', '');
+                        document.querySelector('#loader_entity').setAttribute('visible', false);
+                    }
                 }, 500);
               });
 		}
@@ -390,24 +358,10 @@ var loadScene = function(sceneName,loadedFrom){
  */
 var removeHotspots = function(){
 	document.querySelectorAll('.hotspotClass').forEach(function(hotspot){
-		hotspot.parentNode.remove(hotspot);
+		hotspot.parentNode.removeChild(hotspot);
 	});
 }
 
-/**
- * downloads initial assets for 1st 2 scenes
- * @param  {[Array]} assetsArray [contains json of all intial assets with id and src for each]
- */
-/*
-var downloadInitialAssets = function(assetsArray) {
-    for (var i = 0; i < assetsArray.length; i++) {
-        var img = new Image();
-        img.id = assetsArray[i].id;
-        img.src = assetsArray[i].src;
-        ImgArray.push(img);
-    }
-}
-*/
 
 /**
  * gets current position of cursor
@@ -425,6 +379,7 @@ var getReticlePosition = function(){
       return e
 }
 
+
 /**
  * plays required audio on rendering first scene
  */
@@ -437,8 +392,6 @@ var startExp = function(){
     document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
     document.querySelector('#loader_entity').setAttribute('visible', true);
     document.querySelector('a-sky').setAttribute('color','#293f59');
-
-    // downloadInitialAssets(InitialAssets);
 
 	document.querySelector('#welcomeScapic').play();
 	document.querySelectorAll('.experienceScreen').forEach(function(value){
@@ -491,7 +444,7 @@ var showAboutMachani = function(){
  * returns to the experienceScreen
  */
 var goBackFromAboutScreen = function(){
-	loadScene(sceneArray[sceneArray.length-1]);
+	loadScene(currentScene);
 	showLogos();
 	document.querySelector('#ScapicAbout').setAttribute('visible',false);
 	document.querySelector('#MachaniAbout').setAttribute('visible',false);
@@ -518,8 +471,8 @@ var showLogos = function(){
 /**
  * renders the experience upon loading of assets
  * TODO:
- * add basic loader animations
- * Add configurable loader screen
+ * show loader on initial screen and when assets are downloaded
+ * show fadeIn and fadeOut animation when assets are already downloaded
  */
 $(document).ready(function(){
     document.addEventListener('contextmenu', event => event.preventDefault());
@@ -542,6 +495,4 @@ $(document).ready(function(){
 	  console.log('nosleeping');
 	  document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
 	}
-
-	// document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
 });

@@ -40,9 +40,16 @@ AFRAME.registerComponent('set-image', {
             document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
 
             removeHotspots();
-            document.querySelector('#loader_entity').setAttribute('visible', true);
-            document.querySelector('a-sky').setAttribute('color','#293f59');
-            loadScene(sceneToLoad[0].name,this);
+
+            if(ImgArray.has(loadSceneName)) {
+                // fadeOut();
+                fadeAnimation(1, 0);
+            } else {
+                document.querySelector('#loader_entity').setAttribute('visible', true);
+                document.querySelector('a-sky').setAttribute('color','#293f59');
+            }
+
+            loadScene(sceneToLoad[0].name, this);
         }
     });
   },
