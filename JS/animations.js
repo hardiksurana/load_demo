@@ -4,30 +4,30 @@
  * @param  {[Number]} opacity_new new opacity value
  */
 function fadeAnimation(opacity_old, opacity_new, animation_time){
-    // var entities = document.querySelectorAll('a-entity');
+    var entities = document.querySelectorAll('a-entity');
     var sky = document.querySelectorAll('a-sky');
 
- // 	for(var i=0; i<entities.length; i++){
- // 		if(validEntity(entities[i]))
- // 			entities[i].setAttribute('material','opacity', opacity_old);
- // 	}
+ 	for(var i=0; i<entities.length; i++){
+ 		if(validEntity(entities[i]))
+ 			entities[i].setAttribute('material','opacity', opacity_old);
+ 	}
 
  	for(var i=0; i<sky.length; i++){
  		if(validEntity(sky[i]))
  			sky[i].setAttribute('material','opacity', opacity_old);
  	}
 
- // 	for(var i=0; i<entities.length; i++){
- // 		if(validEntity(entities[i])){
-    //  		var myAnimate = document.createElement('a-animation');
-    //  	    myAnimate.setAttribute('attribute', 'material.opacity');
-    //  	    myAnimate.setAttribute('to', opacity_new.toString());
-    //  	    myAnimate.setAttribute('beign', "fade");
-    //         myAnimate.setAttribute('dur', animation_time.toString());
-    //  	    entities[i].appendChild(myAnimate);
-    //  	    entities[i].emit('fade');
- // 		}
- // 	}
+ 	for(var i=0; i<entities.length; i++){
+ 		if(validEntity(entities[i])){
+     		var myAnimate = document.createElement('a-animation');
+     	    myAnimate.setAttribute('attribute', 'material.opacity');
+     	    myAnimate.setAttribute('to', opacity_new.toString());
+     	    myAnimate.setAttribute('beign', "fade");
+            myAnimate.setAttribute('dur', animation_time.toString());
+     	    entities[i].appendChild(myAnimate);
+     	    entities[i].emit('fade');
+ 		}
+ 	}
 
  	for(var i=0; i<sky.length; i++){
  		if(validEntity(sky[i])){
