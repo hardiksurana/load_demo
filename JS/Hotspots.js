@@ -325,14 +325,16 @@ var renderHotspot = function(hotspot){
  * @param  {[String]} loadedFrom [old scene]
  */
 var loadScene = function(sceneName,loadedFrom){
-	currentScene = sceneName;
+	currentScene = sceneName; 
 	SCENES.map(function(scene){
 		if(scene.name === sceneName){
             var sky = document.querySelector('a-sky');
             sky.setAttribute('src',"#" + scene.name);
 
             // fadeOut animation
-            fadeAnimation(1, 0, 1000);
+            if(ImgSet.has(sceneName)) {
+                fadeAnimation(1, 0, 1000);
+            }
 
             sky.addEventListener('materialtextureloaded', function () {
                     if(ImgSet.has(sceneName)) {
