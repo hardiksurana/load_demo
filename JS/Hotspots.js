@@ -340,8 +340,7 @@ var loadScene = function(sceneName,loadedFrom){
 
             sky.addEventListener('materialtextureloaded', function () {
                 setTimeout(function () {
-                    if(ImgSet.has(sceneName)) {
-                        // fadeIn();
+                    if(/* ImgSet.has(sceneName)*/ scene.download === true) {
                         fadeAnimation(0, 1);
                     } else {
                         sky.setAttribute('color', '');

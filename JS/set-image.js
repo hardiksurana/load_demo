@@ -27,13 +27,14 @@ AFRAME.registerComponent('set-image', {
     var data = this.data;
     var el = this.el;
     el.addEventListener("click", function (event) {
-
         var loadSceneName = this.parentEl.dataset.src;
+
         var sceneToLoad = SCENES.filter(function(scene){
             if(scene.name === loadSceneName){
                 return scene;
             }
         });
+
         if(sceneToLoad.length > 0) {
             document.querySelector('#cursor').emit('animate');
             var position = getReticlePosition();
@@ -41,10 +42,11 @@ AFRAME.registerComponent('set-image', {
 
             removeHotspots();
 
-            if(ImgSet.has(loadSceneName)) {
-                // fadeOut();
+            if( /* ImgSet.has(loadSceneName) */ sceneToLoad[0].download === true) {
+                console.log("animation shown. image already downloaded");
                 fadeAnimation(1, 0);
             } else {
+                console.log("loader shown. image downloaded now.");
                 document.querySelector('#loader_entity').setAttribute('visible', true);
                 document.querySelector('a-sky').setAttribute('color','#293f59');
             }
