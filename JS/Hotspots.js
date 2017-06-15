@@ -320,7 +320,7 @@ var renderHotspot = function(hotspot){
 
 
 var renderAnimationOrLoader = function(sceneName) {
-    console.log(e);
+    // console.log(e);
     if(ImgSet.has(sceneName)) {
         fadeAnimation(1, 0, 3000);
         fadeAnimation(0, 1, 3000);
