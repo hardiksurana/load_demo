@@ -7,7 +7,7 @@ function fadeAnimation(opacity_old, opacity_new, animation_time){
     var entities = document.querySelectorAll('a-entity');
     var sky = document.querySelectorAll('a-sky');
 
-    document.querySelectorAll('a-animate').forEach(function(animate){
+    document.querySelectorAll('a-animation').forEach(function(animate){
         animate.parentNode.removeChild(animate);
     });
 
