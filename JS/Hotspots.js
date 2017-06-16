@@ -435,10 +435,6 @@ var startExp = function(){
 		value.setAttribute('visible',true);
 	});
 
-    if(!ImgSet.has(sceneToLoad[0].name)) {
-        setLoader();
-    }
-
     loadScene(sceneToLoad);
 }
 
