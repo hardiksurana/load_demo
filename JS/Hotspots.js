@@ -321,8 +321,8 @@ var renderHotspot = function(hotspot){
 
 var renderAnimationOrLoader = function(sceneName) {
     if(ImgSet.has(sceneName)) {
-        fadeAnimation(1, 0, 2000);
-        fadeAnimation(0, 1, 2000);
+        fadeAnimation(1, 0, 1500);
+        fadeAnimation(0, 1, 1500);
     } else {
         document.querySelector('a-sky').setAttribute('color', '');
         document.querySelector('#loader_entity').setAttribute('visible', false);

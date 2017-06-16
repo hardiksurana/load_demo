@@ -18,20 +18,20 @@ function fadeAnimation(opacity_old, opacity_new, animation_time){
  	}
 
  	for(var i=0; i<entities.length; i++){
+        var myAnimate = document.createElement('a-animation');
  		if(validEntity(entities[i])){
-     		var myAnimate = document.createElement('a-animation');
      	    myAnimate.setAttribute('attribute', 'material.opacity');
      	    myAnimate.setAttribute('to', opacity_new.toString());
      	    myAnimate.setAttribute('beign', "fade");
             myAnimate.setAttribute('dur', animation_time.toString());
-     	    entities[i].appendChild(myAnimate);
      	    entities[i].emit('fade');
+            entities[i].appendChild(myAnimate);
  		}
  	}
 
  	for(var i=0; i<sky.length; i++){
+        var myAnimate = document.createElement('a-animation');
  		if(validEntity(sky[i])){
- 			var myAnimate = document.createElement('a-animation');
      	    myAnimate.setAttribute('attribute', 'material.opacity');
      	    myAnimate.setAttribute('to', opacity_new.toString());
      	    myAnimate.setAttribute('beign', "fade");
