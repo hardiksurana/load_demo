@@ -17,10 +17,6 @@ AFRAME.registerComponent('set-image', {
             });
 
             if(sceneToLoad.length > 0) {
-                document.querySelector('#cursor').emit('animate');
-                removeHotspots();
-                if(!ImgSet.has(loadSceneName))
-                    setLoader();
                 loadScene(sceneToLoad);
             }
         });

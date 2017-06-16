@@ -318,21 +318,21 @@ var renderHotspot = function(hotspot){
 }
 
 
-var renderAnimationOrLoader = function(sceneName) {
-    if(ImgSet.has(sceneName)) {
+var renderAnimationOrLoader = function(sceneToLoad) {
+    if(ImgSet.has(sceneToLoad[0].name)) {
         document.querySelectorAll('a-animation').forEach(function(animate){
             animate.parentNode.removeChild(animate);
         });
-        
-        fadeAnimation(1, 0, 1000);
-        fadeAnimation(0, 1, 1000);
+
+        fadeAnimation(1, 0, 100);
+        fadeAnimation(0, 1, 100);
     } else {
         document.querySelector('a-sky').setAttribute('color', '');
         document.querySelector('#loader_entity').setAttribute('visible', false);
     }
+
     document.querySelector('a-sky').removeEventListener('materialtextureloaded', renderAnimationOrLoader);
 }
-
 
 
 /**
@@ -343,22 +343,42 @@ var renderAnimationOrLoader = function(sceneName) {
 var loadScene = function(sceneToLoad){
 	currentScene = sceneToLoad[0].name;
     if(sceneToLoad.length > 0) {
+        // animate cursor click
+        document.querySelector('#cursor').emit('animate');
+
+        // remove current scene's hotspots
+        removeHotspots();
+
+        // show loader if requried
+        if(!ImgSet.has(sceneToLoad[0].name))
+            setLoader();
+
+        // set source of next scene in sky
         var sky = document.querySelector('a-sky');
         sky.setAttribute('src',"#" + sceneToLoad[0].name);
 
-        sky.addEventListener('materialtextureloaded', function(){
-            renderAnimationOrLoader(sceneToLoad[0].name);
+        // first sky is loaded, then preloadAndRender is called
+        let promise = new Promise((resolve, reject) => {
+            // loads sky
+           document.querySelector('a-sky').addEventListener('materialtextureloaded', function(){
+               renderAnimationOrLoader(sceneToLoad);
+           });
+
+           // calls preloadAndRender
+           resolve(sceneToLoad);
         });
 
-        setTimeout(function() {
-            sceneToLoad[0].hotspots.map(function(hotspot){
-                renderHotspot(hotspot);
-                preloadImage(hotspot);
-            });
-        }, 500);
+        promise.then(function(sceneToLoad) {
+            setTimeout(function() {
+                sceneToLoad[0].hotspots.map(function(hotspot){
+                    renderHotspot(hotspot);
+                    preloadImage(hotspot);
+                });
+            }, 1500);
+        });
     }
+    return true;
 }
-
 
 /**
  * removes all hotspots of old scene
@@ -383,7 +403,7 @@ var getReticlePosition = function(){
       e.applyAxisAngle(new THREE.Vector3(0,0,1), t.rotation._z),
       e.applyAxisAngle(new THREE.Vector3(1,0,0), t.rotation._x),
       e.applyAxisAngle(new THREE.Vector3(0,1,0), t.rotation._y)
-      return e
+      return e;
 }
 
 
@@ -418,7 +438,7 @@ var startExp = function(){
             return scene;
         }
     });
-	loadScene(sceneToLoad);
+    loadScene(sceneToLoad);
 }
 
 /**
