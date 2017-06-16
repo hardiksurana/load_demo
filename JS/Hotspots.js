@@ -326,7 +326,6 @@ var renderAnimationOrLoader = function(sceneToLoad) {
         document.querySelectorAll('a-animation').forEach(function(animate){
             animate.parentNode.removeChild(animate);
         });
-
         fadeAnimation(0, 1, 400);
     } else {
         document.querySelector('a-sky').setAttribute('color', '');
@@ -362,10 +361,10 @@ var loadScene = function(sceneToLoad){
                    fadeAnimation(1, 0, 1000);
                 }
                 renderAnimationOrLoader(sceneToLoad);
-            });
 
-            // calls preloadAndRender
-            resolve(sceneToLoad);
+                // calls preloadAndRender
+                resolve(sceneToLoad);
+            });
         });
 
         promise.then(function(sceneToLoad) {
