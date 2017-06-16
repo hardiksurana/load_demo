@@ -7,8 +7,6 @@ function fadeAnimation(opacity_old, opacity_new, animation_time){
     var entities = document.querySelectorAll('a-entity');
     var sky = document.querySelectorAll('a-sky');
 
-
-
  	for(var i=0; i<entities.length; i++){
  		if(validEntity(entities[i]))
  			entities[i].setAttribute('material','opacity', opacity_old);
@@ -21,21 +19,20 @@ function fadeAnimation(opacity_old, opacity_new, animation_time){
 
     var myAnimate = document.createElement('a-animation');
     myAnimate.setAttribute('attribute', 'material.opacity');
+    myAnimate.setAttribute('from', opacity_old.toString());
     myAnimate.setAttribute('to', opacity_new.toString());
-    myAnimate.setAttribute('begin', "fade");
+    // myAnimate.setAttribute('begin', "fade");
     myAnimate.setAttribute('dur', animation_time.toString());
 
  	for(var i=0; i<entities.length; i++){
  		if(validEntity(entities[i])){
             entities[i].appendChild(myAnimate);
-            entities[i].emit('fade');
  		}
  	}
 
  	for(var i=0; i<sky.length; i++){
  		if(validEntity(sky[i])){
             sky[i].appendChild(myAnimate);
-            sky[i].emit('fade');
  		}
  	}
 }

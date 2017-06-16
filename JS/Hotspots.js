@@ -300,6 +300,7 @@ var preloadImage = function(hotspot) {
     }
 }
 
+
 /**
  * renders a hotspot on current scene
  * adds the hotspots to <a-scene />
@@ -319,18 +320,18 @@ var renderHotspot = function(hotspot){
 
 
 var renderAnimationOrLoader = function(sceneToLoad) {
+    var sky = document.querySelector('a-sky');
+
     if(ImgSet.has(sceneToLoad[0].name)) {
         document.querySelectorAll('a-animation').forEach(function(animate){
             animate.parentNode.removeChild(animate);
         });
 
-        fadeAnimation(1, 0, 100);
-        fadeAnimation(0, 1, 100);
+        fadeAnimation(0, 1, 400);
     } else {
         document.querySelector('a-sky').setAttribute('color', '');
         document.querySelector('#loader_entity').setAttribute('visible', false);
     }
-
     document.querySelector('a-sky').removeEventListener('materialtextureloaded', renderAnimationOrLoader);
 }
 
@@ -343,29 +344,28 @@ var renderAnimationOrLoader = function(sceneToLoad) {
 var loadScene = function(sceneToLoad){
 	currentScene = sceneToLoad[0].name;
     if(sceneToLoad.length > 0) {
-        // animate cursor click
-        document.querySelector('#cursor').emit('animate');
-
-        // remove current scene's hotspots
+        // remove old scene's hotspots
         removeHotspots();
 
         // show loader if requried
         if(!ImgSet.has(sceneToLoad[0].name))
             setLoader();
 
-        // set source of next scene in sky
-        var sky = document.querySelector('a-sky');
-        sky.setAttribute('src',"#" + sceneToLoad[0].name);
+        // set source of new scene in sky
+        document.querySelector('a-sky').setAttribute('src', "#" + sceneToLoad[0].name);
 
         // first sky is loaded, then preloadAndRender is called
         let promise = new Promise((resolve, reject) => {
             // loads sky
-           document.querySelector('a-sky').addEventListener('materialtextureloaded', function(){
-               renderAnimationOrLoader(sceneToLoad);
-           });
+            document.querySelector('a-sky').addEventListener('materialtextureloaded', function(){
+                if(ImgSet.has(sceneToLoad[0].name)) {
+                   fadeAnimation(1, 0, 1000);
+                }
+                renderAnimationOrLoader(sceneToLoad);
+            });
 
-           // calls preloadAndRender
-           resolve(sceneToLoad);
+            // calls preloadAndRender
+            resolve(sceneToLoad);
         });
 
         promise.then(function(sceneToLoad) {
@@ -374,10 +374,9 @@ var loadScene = function(sceneToLoad){
                     renderHotspot(hotspot);
                     preloadImage(hotspot);
                 });
-            }, 1500);
+            }, 1000);
         });
     }
-    return true;
 }
 
 /**
@@ -412,9 +411,9 @@ var getReticlePosition = function(){
  */
 var setLoader = function() {
     var position = getReticlePosition();
-    document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
+    document.querySelector('#loader_entity').setAttribute('position', `${position.x} ${position.y} ${position.z}`);
     document.querySelector('#loader_entity').setAttribute('visible', true);
-    document.querySelector('a-sky').setAttribute('color','#293f59');
+    document.querySelector('a-sky').setAttribute('color', '#293f59');
 }
 
 
@@ -422,22 +421,25 @@ var setLoader = function() {
  * plays required audio on rendering first scene
  */
 var startExp = function(){
+    var sceneToLoad = SCENES.filter(function(scene){
+        if(scene.name === 'houseEntrance'){
+            return scene;
+        }
+    });
+
     document.querySelector('#startScreen').emit('start');
     document.querySelector('#startScreen').setAttribute('visible',false);
     document.querySelector('#startScreen2').setAttribute('visible',false);
-
-    setLoader();
 
 	document.querySelector('#welcomeScapic').play();
 	document.querySelectorAll('.experienceScreen').forEach(function(value){
 		value.setAttribute('visible',true);
 	});
 
-    var sceneToLoad = SCENES.filter(function(scene){
-        if(scene.name === 'houseEntrance'){
-            return scene;
-        }
-    });
+    if(!ImgSet.has(sceneToLoad[0].name)) {
+        setLoader();
+    }
+
     loadScene(sceneToLoad);
 }
 
@@ -484,7 +486,13 @@ var showAboutMachani = function(){
  * returns to the experienceScreen
  */
 var goBackFromAboutScreen = function(){
-	loadScene(currentScene);
+    var sceneToLoad = SCENES.filter(function(scene){
+        if(scene.name === 'houseEntrance'){
+            return scene;
+        }
+    });
+
+	loadScene(sceneToLoad);
 	showLogos();
 	document.querySelector('#ScapicAbout').setAttribute('visible',false);
 	document.querySelector('#MachaniAbout').setAttribute('visible',false);

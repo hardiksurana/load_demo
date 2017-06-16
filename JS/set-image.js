@@ -17,6 +17,10 @@ AFRAME.registerComponent('set-image', {
             });
 
             if(sceneToLoad.length > 0) {
+                // animate cursor click
+                document.querySelector('#cursor').emit('animate');
+
+                // load current scene
                 loadScene(sceneToLoad);
             }
         });
