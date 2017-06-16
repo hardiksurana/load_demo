@@ -5,72 +5,47 @@
  * back in.
  */
 AFRAME.registerComponent('set-image', {
-  schema: {
-    on: {type: 'string'},
-    target: {type: 'selector'},
-    src: {type: 'string'},
-    dur: {type: 'number', default: 300}
-  },
+    init: function () {
+        var data = this.data;
+        var el = this.el;
+        el.addEventListener("click", function (event) {
+            var loadSceneName = this.parentEl.dataset.src;
+            var sceneToLoad = SCENES.filter(function(scene){
+                if(scene.name === loadSceneName){
+                    return scene;
+                }
+            });
 
-  init: function () {
-    var data = this.data;
-    var el = this.el;
-    el.addEventListener("click", function (event) {
-        var loadSceneName = this.parentEl.dataset.src;
-
-        var sceneToLoad = SCENES.filter(function(scene){
-            if(scene.name === loadSceneName){
-                return scene;
+            if(sceneToLoad.length > 0) {
+                document.querySelector('#cursor').emit('animate');
+                removeHotspots();
+                if(!ImgSet.has(loadSceneName))
+                    setLoader();
+                loadScene(sceneToLoad);
             }
         });
-
-        if(sceneToLoad.length > 0) {
-            document.querySelector('#cursor').emit('animate');
-            var position = getReticlePosition();
-            document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
-
-            removeHotspots();
-
-            if(!ImgSet.has(loadSceneName)) {
-                document.querySelector('#loader_entity').setAttribute('visible', true);
-                document.querySelector('a-sky').setAttribute('color','#293f59');
-            }
-
-            loadScene(sceneToLoad[0].name, this);
-        }
-    });
-  },
+    },
 
 
-  /**
-   * Setup fade-in + fade-out.
-   */
-  setupFadeAnimation: function () {
-    var data = this.data;
-    var targetEl = this.data.target;
+    /**
+     * Setup fade-in + fade-out.
+     */
+    setupFadeAnimation: function () {
+        var data = this.data;
+        var targetEl = this.data.target;
 
-    // Only set up once.
-    if (targetEl.dataset.setImageFadeSetup) { return; }
-    targetEl.dataset.setImageFadeSetup = true;
+        // Only set up once.
+        if (targetEl.dataset.setImageFadeSetup) { return; }
+        targetEl.dataset.setImageFadeSetup = true;
 
-    // Create animation.
-    targetEl.setAttribute('animation__fade', {
-      property: 'material.color',
-      startEvents: 'set-image-fade',
-      dir: 'alternate',
-      dur: data.dur,
-      from: '#FFF',
-      to: '#000'
-    });
-  }
-});
-
-
-AFRAME.registerComponent('update-raycaster', {
-  schema: {type: 'selector'},
-
-  init: function () {
-    var raycasterEl = this.data;
-    raycasterEl.components.raycaster.refreshObjects();
-  }
+        // Create animation.
+        targetEl.setAttribute('animation__fade', {
+          property: 'material.color',
+          startEvents: 'set-image-fade',
+          dir: 'alternate',
+          dur: data.dur,
+          from: '#FFF',
+          to: '#000'
+        });
+    }
 });

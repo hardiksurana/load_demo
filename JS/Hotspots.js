@@ -295,7 +295,6 @@ var preloadImage = function(hotspot) {
         document.querySelector('a-assets').appendChild(img);
 
         document.querySelector('#' + newSceneId).addEventListener('load', function() {
-            // SCENES[num].download = true;
             ImgSet.add(newSceneId);
         });
     }
@@ -321,8 +320,12 @@ var renderHotspot = function(hotspot){
 
 var renderAnimationOrLoader = function(sceneName) {
     if(ImgSet.has(sceneName)) {
-        fadeAnimation(1, 0, 1500);
-        fadeAnimation(0, 1, 1500);
+        document.querySelectorAll('a-animation').forEach(function(animate){
+            animate.parentNode.removeChild(animate);
+        });
+        
+        fadeAnimation(1, 0, 1000);
+        fadeAnimation(0, 1, 1000);
     } else {
         document.querySelector('a-sky').setAttribute('color', '');
         document.querySelector('#loader_entity').setAttribute('visible', false);
@@ -337,29 +340,22 @@ var renderAnimationOrLoader = function(sceneName) {
  * @param  {[String]} sceneName  [new scene]
  * @param  {[String]} loadedFrom [old scene]
  */
-var loadScene = function(sceneName,loadedFrom){
-	currentScene = sceneName;
-
-    var sceneToLoad = SCENES.filter(function(scene){
-        if(scene.name === currentScene){
-            return scene;
-        }
-    });
-
+var loadScene = function(sceneToLoad){
+	currentScene = sceneToLoad[0].name;
     if(sceneToLoad.length > 0) {
         var sky = document.querySelector('a-sky');
         sky.setAttribute('src',"#" + sceneToLoad[0].name);
+
+        sky.addEventListener('materialtextureloaded', function(){
+            renderAnimationOrLoader(sceneToLoad[0].name);
+        });
 
         setTimeout(function() {
             sceneToLoad[0].hotspots.map(function(hotspot){
                 renderHotspot(hotspot);
                 preloadImage(hotspot);
             });
-        }, 1500);
-
-        sky.addEventListener('materialtextureloaded', function(){
-            renderAnimationOrLoader(sceneToLoad[0].name);
-        });
+        }, 500);
     }
 }
 
@@ -392,6 +388,17 @@ var getReticlePosition = function(){
 
 
 /**
+ * if asset is not downloaded, it shows the loader
+ */
+var setLoader = function() {
+    var position = getReticlePosition();
+    document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
+    document.querySelector('#loader_entity').setAttribute('visible', true);
+    document.querySelector('a-sky').setAttribute('color','#293f59');
+}
+
+
+/**
  * plays required audio on rendering first scene
  */
 var startExp = function(){
@@ -399,17 +406,19 @@ var startExp = function(){
     document.querySelector('#startScreen').setAttribute('visible',false);
     document.querySelector('#startScreen2').setAttribute('visible',false);
 
-    var position = getReticlePosition();
-    document.querySelector('#loader_entity').setAttribute('position',`${position.x} ${position.y} ${position.z}`);
-    document.querySelector('#loader_entity').setAttribute('visible', true);
-    document.querySelector('a-sky').setAttribute('color','#293f59');
+    setLoader();
 
 	document.querySelector('#welcomeScapic').play();
 	document.querySelectorAll('.experienceScreen').forEach(function(value){
 		value.setAttribute('visible',true);
 	});
 
-	loadScene('houseEntrance');
+    var sceneToLoad = SCENES.filter(function(scene){
+        if(scene.name === 'houseEntrance'){
+            return scene;
+        }
+    });
+	loadScene(sceneToLoad);
 }
 
 /**
