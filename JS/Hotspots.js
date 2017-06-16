@@ -412,7 +412,7 @@ var setLoader = function() {
     var position = getReticlePosition();
     document.querySelector('#loader_entity').setAttribute('position', `${position.x} ${position.y} ${position.z}`);
     document.querySelector('#loader_entity').setAttribute('visible', true);
-    document.querySelector('a-sky').setAttribute('color', '#293f59');
+    // document.querySelector('a-sky').setAttribute('color', '#293f59');
 }
 
 
@@ -465,8 +465,8 @@ var closeExp = function(){
 var showAboutScapic = function(){
 	removeHotspots();
 	hideLogos();
-	document.querySelector('#ScapicAbout').setAttribute('visible',true);
-	document.querySelector('a-sky').setAttribute('src','');
+	document.querySelector('#ScapicAbout').setAttribute('visible', true);
+	document.querySelector('a-sky').setAttribute('src', '');
 	document.querySelector('a-sky').setAttribute('color','#293f59');
 }
 
@@ -476,9 +476,9 @@ var showAboutScapic = function(){
 var showAboutMachani = function(){
 	removeHotspots();
 	hideLogos();
-	document.querySelector('#MachaniAbout').setAttribute('visible',true);
-	document.querySelector('a-sky').setAttribute('src','');
-	document.querySelector('a-sky').setAttribute('color','#293f59');
+	document.querySelector('#MachaniAbout').setAttribute('visible', true);
+	document.querySelector('a-sky').setAttribute('src', '');
+	document.querySelector('a-sky').setAttribute('color', '#293f59');
 }
 
 /**
