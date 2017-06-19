@@ -259,6 +259,7 @@ var SCENES = [
 
 var currentSceneName = '';
 var ImgSet = new Set();
+var LoaderShown = false;
 
 /**
  * finds scene in SCENES json array
@@ -328,14 +329,15 @@ var renderAnimations = function (tempScene) {
         var SKY = document.querySelector('a-sky');
         var callback = function renderAnimationOrLoader() {
             // fadeIn animation
-            if(ImgSet.has(currentSceneName)) {
+            if(ImgSet.has(currentSceneName) && (LoaderShown === false)) {
                 fadeAnimation(0, 1, 400);
             }
             // remove loader
-            else {
+            if(LoaderShown === true) {
                 SKY.setAttribute('color', '');
                 document.querySelector('#loader_entity').setAttribute('visible', false);
-                console.log('entered else of renderAnimations');
+                console.log('shown loader is removed.');
+                LoaderShown = false;
             }
 
             SKY.removeEventListener('materialtextureloaded', callback);
@@ -422,6 +424,7 @@ var setLoader = function() {
     document.querySelector('#loader_entity').setAttribute('position', `${position.x} ${position.y} ${position.z}`);
     document.querySelector('#loader_entity').setAttribute('visible', true);
     document.querySelector('a-sky').setAttribute('color', '#293f59');
+    LoaderShown = true;
 }
 
 
@@ -444,7 +447,10 @@ var startExp = function(){
 		value.setAttribute('visible',true);
 	});
 
-    ImgSet.add(sceneToLoad[0].name);
+    document.getElementById(sceneToLoad[0].name).addEventListener('load', function() {
+        ImgSet.add(sceneToLoad[0].name);
+    });
+
     loadScene(sceneToLoad);
 }
 
