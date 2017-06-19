@@ -293,7 +293,6 @@ var preloadImage = function(hotspot) {
         img.id = newSceneId;
 
         document.querySelector('a-assets').appendChild(img);
-
         document.querySelector('#' + newSceneId).addEventListener('load', function() {
             ImgSet.add(newSceneId);
         });
@@ -319,64 +318,71 @@ var renderHotspot = function(hotspot){
 }
 
 
-var renderAnimationOrLoader = function(sceneToLoad) {
-    var SKY = document.querySelector('a-sky');
+/**
+ * displays animations for sky
+ * @param  {[json]}    tempScene [contains json data for current scene]
+ * @return {[Promise]}           [promise to execute other events synchronously]
+ */
+var renderAnimations = function (tempScene) {
+    var promise = new Promise(function (resolve, reject) {
+        var SKY = document.querySelector('a-sky');
+        var callback = function renderAnimationOrLoader() {
+            // fadeIn animation
+            if(ImgSet.has(currentSceneName)) {
+                fadeAnimation(0, 1, 400);
+            }
+            // remove loader
+            else {
+                document.querySelector('#loader_entity').setAttribute('visible', false);
+                SKY.setAttribute('color', '');
+            }
 
-    if(ImgSet.has(sceneToLoad[0].name)) {
-        document.querySelectorAll('a-animation').forEach(function(animate){
-            animate.parentNode.removeChild(animate);
-        });
-        fadeAnimation(0, 1, 400);
-    } else {
-        document.querySelector('#loader_entity').setAttribute('visible', false);
-        // SKY.setAttribute('color', '');
-    }
-    SKY.removeEventListener('materialtextureloaded', renderAnimationOrLoader);
+            SKY.removeEventListener('materialtextureloaded', callback);
+
+            // calls preloadAndRender
+            if(tempScene.length > 0) {
+                resolve(tempScene);
+            } else {
+                reject('tempScene is empty');
+            }
+        }.bind(tempScene);
+
+        SKY.addEventListener('materialtextureloaded', callback);
+    });
+    return promise;
 }
-
 
 /**
  * loads a new scene by replacing old scene and replacing hotspots
  * @param  {[String]} sceneName  [new scene]
  * @param  {[String]} loadedFrom [old scene]
  */
-var loadScene = function(sceneToLoad) {
-	currentSceneName = sceneToLoad[0].name;
+var loadScene = function(tempScene) {
+	currentSceneName = tempScene[0].name;
     var sky = document.querySelector('a-sky');
-    if(sceneToLoad.length > 0) {
+    if(tempScene.length > 0) {
         // remove old scene's hotspots
         removeHotspots();
+
+        // set source of new scene in sky
+        sky.setAttribute('src', "#" + currentSceneName);
 
         // show loader if requried
         if(!ImgSet.has(currentSceneName)) {
             setLoader();
         }
 
-        // set source of new scene in sky
-        sky.setAttribute('src', "#" + currentSceneName);
-
-        // first sky is loaded, then preloadAndRender is called
-        let promise = new Promise((resolve, reject) => {
-            // loads sky
-            sky.addEventListener('materialtextureloaded', function(){
-                if(ImgSet.has(currentSceneName)) {
-                   fadeAnimation(1, 0, 1000);
-                }
-                renderAnimationOrLoader(sceneToLoad);
-
-                // calls preloadAndRender
-                resolve(sceneToLoad);
-            });
-        });
-
-        promise.then(function(sceneToLoad) {
-            setTimeout(function() {
-                sceneToLoad[0].hotspots.map(function(hotspot){
+        // contains promise for loading of sky and showing animations
+        renderAnimations(tempScene)
+            .then(function(tempScene) {
+                tempScene[0].hotspots.map(function(hotspot){
                     renderHotspot(hotspot);
                     preloadImage(hotspot);
                 });
-            }, 1000);
-        });
+            })
+            .catch(function(err) {
+                console.log('Catch: ', err);
+            });
     }
 }
 
@@ -414,7 +420,7 @@ var setLoader = function() {
     var position = getReticlePosition();
     document.querySelector('#loader_entity').setAttribute('position', `${position.x} ${position.y} ${position.z}`);
     document.querySelector('#loader_entity').setAttribute('visible', true);
-    // document.querySelector('a-sky').setAttribute('color', '#293f59');
+    document.querySelector('a-sky').setAttribute('color', '#293f59');
 }
 
 
@@ -485,15 +491,15 @@ var showAboutMachani = function(){
  */
 var goBackFromAboutScreen = function(){
     var sceneToLoad = SCENES.filter(function(scene){
-        if(scene.name === 'houseEntrance'){
+        if(scene.name === currentSceneName){
             return scene;
         }
     });
-
-	loadScene(sceneToLoad);
-	showLogos();
 	document.querySelector('#ScapicAbout').setAttribute('visible',false);
 	document.querySelector('#MachaniAbout').setAttribute('visible',false);
+    document.querySelector('a-sky').setAttribute('color', '');
+    showLogos();
+    loadScene(sceneToLoad);
 }
 
 /**

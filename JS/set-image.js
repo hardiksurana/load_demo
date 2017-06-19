@@ -10,42 +10,19 @@ AFRAME.registerComponent('set-image', {
         var el = this.el;
         el.addEventListener("click", function (event) {
             var loadSceneName = this.parentEl.dataset.src;
-            var sceneToLoad = SCENES.filter(function(scene){
+            var newSceneToLoad = SCENES.filter(function(scene){
                 if(scene.name === loadSceneName){
                     return scene;
                 }
             });
 
-            if(sceneToLoad.length > 0) {
+            if(newSceneToLoad.length > 0) {
                 // animate cursor click
                 document.querySelector('#cursor').emit('animate');
 
                 // load current scene
-                loadScene(sceneToLoad);
+                loadScene(newSceneToLoad);
             }
-        });
-    },
-
-
-    /**
-     * Setup fade-in + fade-out.
-     */
-    setupFadeAnimation: function () {
-        var data = this.data;
-        var targetEl = this.data.target;
-
-        // Only set up once.
-        if (targetEl.dataset.setImageFadeSetup) { return; }
-        targetEl.dataset.setImageFadeSetup = true;
-
-        // Create animation.
-        targetEl.setAttribute('animation__fade', {
-          property: 'material.color',
-          startEvents: 'set-image-fade',
-          dir: 'alternate',
-          dur: data.dur,
-          from: '#FFF',
-          to: '#000'
         });
     }
 });
