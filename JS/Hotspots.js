@@ -333,8 +333,9 @@ var renderAnimations = function (tempScene) {
             }
             // remove loader
             else {
-                document.querySelector('#loader_entity').setAttribute('visible', false);
                 SKY.setAttribute('color', '');
+                document.querySelector('#loader_entity').setAttribute('visible', false);
+                console.log('entered else of renderAnimations');
             }
 
             SKY.removeEventListener('materialtextureloaded', callback);
