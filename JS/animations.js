@@ -44,7 +44,9 @@ function fadeAnimation(opacity_old, opacity_new, animation_time){
  * @return {Boolean}        returns true if entity is valid
  */
 function validEntity(entity){
-    return 	!(entity.id === 'cameraWrapper' || entity.id == "pointLight" || entity.id === "dirLight" ||
+    return 	!(entity.id === 'cameraWrapper' ||
+        entity.id == "pointLight" ||
+        entity.id === "dirLight" ||
 		entity.attributes[0].nodeName === 'camera' ||
 		entity.id === 'cursor' ||
 		entity.id === 'camera' ||

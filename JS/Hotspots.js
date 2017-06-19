@@ -257,7 +257,7 @@ var SCENES = [
 		];
 
 
-var currentScene = '';
+var currentSceneName = '';
 var ImgSet = new Set();
 
 /**
@@ -308,19 +308,19 @@ var preloadImage = function(hotspot) {
  */
 var renderHotspot = function(hotspot){
 	var entity = document.createElement('a-entity');
-	entity.setAttribute('template','src: #link');
-	entity.setAttribute('data-thumb','#hotspot');
-	entity.setAttribute('data-src',hotspot.connected);
-	entity.setAttribute('data-title',hotspot.connected);
-	entity.setAttribute('position',hotspot.position);
-	entity.setAttribute('rotation',hotspot.rotation);
-	entity.setAttribute('class','hotspotClass');
+	entity.setAttribute('template', 'src: #link');
+	entity.setAttribute('data-thumb', '#hotspot');
+	entity.setAttribute('data-src', hotspot.connected);
+	entity.setAttribute('data-title', hotspot.connected);
+	entity.setAttribute('position', hotspot.position);
+	entity.setAttribute('rotation', hotspot.rotation);
+	entity.setAttribute('class', 'hotspotClass');
 	document.querySelector('a-scene').append(entity);
 }
 
 
 var renderAnimationOrLoader = function(sceneToLoad) {
-    var sky = document.querySelector('a-sky');
+    var SKY = document.querySelector('a-sky');
 
     if(ImgSet.has(sceneToLoad[0].name)) {
         document.querySelectorAll('a-animation').forEach(function(animate){
@@ -328,10 +328,10 @@ var renderAnimationOrLoader = function(sceneToLoad) {
         });
         fadeAnimation(0, 1, 400);
     } else {
-        document.querySelector('a-sky').setAttribute('color', '');
         document.querySelector('#loader_entity').setAttribute('visible', false);
+        // SKY.setAttribute('color', '');
     }
-    document.querySelector('a-sky').removeEventListener('materialtextureloaded', renderAnimationOrLoader);
+    SKY.removeEventListener('materialtextureloaded', renderAnimationOrLoader);
 }
 
 
@@ -340,24 +340,26 @@ var renderAnimationOrLoader = function(sceneToLoad) {
  * @param  {[String]} sceneName  [new scene]
  * @param  {[String]} loadedFrom [old scene]
  */
-var loadScene = function(sceneToLoad){
-	currentScene = sceneToLoad[0].name;
+var loadScene = function(sceneToLoad) {
+	currentSceneName = sceneToLoad[0].name;
+    var sky = document.querySelector('a-sky');
     if(sceneToLoad.length > 0) {
         // remove old scene's hotspots
         removeHotspots();
 
         // show loader if requried
-        if(!ImgSet.has(sceneToLoad[0].name))
+        if(!ImgSet.has(currentSceneName)) {
             setLoader();
+        }
 
         // set source of new scene in sky
-        document.querySelector('a-sky').setAttribute('src', "#" + sceneToLoad[0].name);
+        sky.setAttribute('src', "#" + currentSceneName);
 
         // first sky is loaded, then preloadAndRender is called
         let promise = new Promise((resolve, reject) => {
             // loads sky
-            document.querySelector('a-sky').addEventListener('materialtextureloaded', function(){
-                if(ImgSet.has(sceneToLoad[0].name)) {
+            sky.addEventListener('materialtextureloaded', function(){
+                if(ImgSet.has(currentSceneName)) {
                    fadeAnimation(1, 0, 1000);
                 }
                 renderAnimationOrLoader(sceneToLoad);
@@ -435,6 +437,7 @@ var startExp = function(){
 		value.setAttribute('visible',true);
 	});
 
+    ImgSet.add(sceneToLoad[0].name);
     loadScene(sceneToLoad);
 }
 
