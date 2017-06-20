@@ -463,13 +463,14 @@ var setLoader = function() {
     // create loader entity here
     var loaderEntity = document.createElement('a-entity');
     loaderEntity.setAttribute("id", "loader_entity");
-    loaderEntity.setAttribute("geometry", {
-     primitive:"box",
-     width:"1.5",
-     height:"1.5",
-     depth:"1.5"
+    loaderEntity.setAttribute('geometry', {
+     primitive: 'box',
+     width: 1.5,
+     height: 1.5,
+     depth: 1.5
     });
-    loaderEntity.setAttribute("position", "0 0 -5");
+    // loaderEntity.setAttribute('position', { x: 0, y: 0, z: -5 });
+    // loaderEntity.setAttribute("position", "0 0 -5");
     loaderEntity.setAttribute("material", {
         shader: "gif",
         src: "#loader"
