@@ -352,22 +352,22 @@ var renderHotspot = function(hotspot){
  */
 var renderAnimations = function (tempScene) {
     var promise = new Promise(function (resolve, reject) {
-        var SKY = document.querySelector('a-sky');
         var callback = function renderAnimationOrLoader() {
-            // fadeOut and fadeIn animation
-            if(ImgSet.has(currentSceneName) && (LoaderShown === false)) {
-                fadeAnimation(1, 0, 400);
-                fadeAnimation(0, 1, 400);
-            }
-            // remove loader
-            if(LoaderShown === true) {
-                SKY.setAttribute('color', '');
-                document.querySelector('#loader_entity').setAttribute('visible', false);
-                console.log('shown loader is removed.');
-                LoaderShown = false;
-            }
+            // show animation or remove loader
+            // if(ImgSet.has(currentSceneName)) {
+                if(LoaderShown === false) {
+                    fadeAnimation(1, 0, 400);
+                    fadeAnimation(0, 1, 400);
+                }
+                else {
+                    document.querySelector('a-sky').setAttribute('color', '');
+                    document.querySelector('#loader_entity').setAttribute('visible', false);
+                    console.log('shown loader is removed.');
+                    LoaderShown = false;
+                }
+            // }
 
-            SKY.removeEventListener('materialtextureloaded', callback);
+            document.querySelector('a-sky').removeEventListener('materialtextureloaded', callback);
 
             // calls preloadAndRender
             if(tempScene.length > 0) {
@@ -377,7 +377,7 @@ var renderAnimations = function (tempScene) {
             }
         }.bind(tempScene);
 
-        SKY.addEventListener('materialtextureloaded', callback);
+        document.querySelector('a-sky').addEventListener('materialtextureloaded', callback);
     });
     return promise;
 }
