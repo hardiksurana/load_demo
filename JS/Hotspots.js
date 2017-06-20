@@ -361,7 +361,7 @@ var renderAnimations = function (tempScene) {
                 else {
                     document.querySelector('a-sky').setAttribute('color', '');
                     // document.querySelector('#loader_entity').setAttribute('visible', false);
-                    document.querySelector('#loader_entity').classList.add('loader');
+                    document.querySelector('#loader_entity').className = 'loader';
                     console.log('shown loader is removed.');
                     LoaderShown = false;
                 }
