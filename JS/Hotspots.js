@@ -359,10 +359,12 @@ var renderAnimations = function (tempScene) {
                     fadeAnimation(0, 1, 400);
                 }
                 else {
+                    console.log('sky color is removed');
                     document.querySelector('a-sky').setAttribute('color', '');
-                    // document.querySelector('#loader_entity').setAttribute('visible', false);
-                    document.querySelector('#loader_entity').className = 'loader';
-                    console.log('shown loader is removed.');
+                    console.log('loader visibility is false');
+                    document.querySelector('#loader_entity').setAttribute('visible', false);
+                    // document.querySelector('#loader_entity').className = 'loader';
+                    console.log('shown loader is removed. end of function.');
                     LoaderShown = false;
                 }
 
@@ -451,9 +453,11 @@ var getReticlePosition = function(){
 var setLoader = function() {
     var position = getReticlePosition();
     document.querySelector('#loader_entity').setAttribute('position', `${position.x} ${position.y} ${position.z}`);
-    // document.querySelector('#loader_entity').setAttribute('visible', true);
-    document.querySelector('#loader_entity').classList.remove('loader');
+    document.querySelector('#loader_entity').setAttribute('visible', true);
+    console.log('loader_entity is set. In setLoader function.');
+    // document.querySelector('#loader_entity').classList.remove('loader');
     document.querySelector('a-sky').setAttribute('color', '#293f59');
+    console.log('sky color is added.');
     LoaderShown = true;
 }
 
