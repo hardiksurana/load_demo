@@ -367,6 +367,7 @@ var renderAnimations = function (tempScene) {
                         // document.querySelector('#loader_entity').className = 'loader';
                         // document.querySelector('#loader_entity').visible = false;
                         $('#loader_entity').setAttribute('visible', false);
+                        console.log($('#loader_entity').getAttribute('visible'));
                         console.log('shown loader is removed. end of function.');
                         LoaderShown = false;
                     }, 2000);
