@@ -366,7 +366,7 @@ var renderAnimations = function (tempScene) {
                         // document.querySelector('#loader_entity').setAttribute('visible', false);
                         // document.querySelector('#loader_entity').className = 'loader';
                         // document.querySelector('#loader_entity').visible = false;
-                        $('#loader_entity').setAttribute('visible', false);
+                        $('#loader_entity').attr('visible', false);
                         console.log("supposed to be false - ", $('#loader_entity').getAttribute('visible'));
                         console.log('shown loader is removed. end of function.');
                         LoaderShown = false;
@@ -458,7 +458,7 @@ var getReticlePosition = function(){
 var setLoader = function() {
     var position = getReticlePosition();
     document.querySelector('#loader_entity').setAttribute('position', `${position.x} ${position.y} ${position.z}`);
-    $('#loader_entity').setAttribute('visible', true);
+    $('#loader_entity').attr('visible', true);
     console.log("supposed to be true - ", $('#loader_entity').getAttribute('visible'));
     // console.log('loader_entity is set. In setLoader function.');
     // document.querySelector('#loader_entity').classList.remove('loader');
