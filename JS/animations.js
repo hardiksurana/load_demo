@@ -13,12 +13,12 @@ function fadeAnimation(opacity_old, opacity_new, animation_time){
 
  	for(var i=0; i<entities.length; i++){
  		if(validEntity(entities[i]))
- 			entities[i].setAttribute('material','opacity', opacity_old);
+ 			entities[i].setAttribute('material', 'opacity', opacity_old);
  	}
 
  	for(var i=0; i<sky.length; i++){
  		if(validEntity(sky[i]))
- 			sky[i].setAttribute('material','opacity', opacity_old);
+ 			sky[i].setAttribute('material', 'opacity', opacity_old);
  	}
 
     var myAnimate = document.createElement('a-animation');

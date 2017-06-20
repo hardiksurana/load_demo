@@ -24,23 +24,29 @@
 		<title>Test-LiveUp</title>
 	</head>
 
-    <body>
+    <body style="background-color: #333">
         <a-scene>
             <a-assets>
+                <!-- loader asset -->
                 <img id="loader" src="./assets/img/Preloader_1.gif"></img>
+
+                <!-- initial assets -->
+                <img id="mcLogo" src="./assets/logos/machani.png"></img>
+                <img id="startButton" src="./assets/img/startExperience.png"></img>
+                <img id="start" src="./assets/panos/start.jpg">
+                <audio src="./assets/media/WelcomeScapic.ogg" id="welcomeScapic"></audio>
+
+                <!-- assets for scene 1 -->
                 <img id="houseEntrance" src="./assets/panos/houseEntrance.jpg"></img>
-    			<img id="start" src="./assets/panos/start.jpg">
     			<img id="hotspot" src="./assets/img/hotspot.png"></img>
-    			<img id="mcLogo" src="./assets/logos/machani.png"></img>
     			<img id="machani" src="./assets/img/machaniLogo.png"></img>
     			<img id="scapic" src="./assets/img/scapic.png"></img>
-    			<img id="startButton" src="./assets/img/startExperience.png"></img>
     			<img id="backButton" src="./assets/img/goBack.png"></img>
     			<img id="homeButton" src="./assets/img/homeButton.png"></img>
     			<img id="aboutScapic" src="./assets/img/aboutScapic.png"></img>
     			<img id="aboutMachani" src="./assets/img/aboutMachani.png"></img>
-                <audio src="./assets/media/WelcomeScapic.ogg" id="welcomeScapic"></audio>
 
+                <!-- mixin for gazing at hotspot -->
                 <a-asset-items>
         			<a-mixin id="H_image" material="src: #hotspot"></a-mixin>
         	        <script id="link" type="text/nunjucks">
@@ -53,11 +59,10 @@
         	            set-image="on:click;"></a-plane>
                 	</script>
         		</a-asset-items>
-
             </a-assets>
 
             <!-- loader -->
-            <a-entity id="loader_entity" geometry="primitive:box; width:1.5; height:1.5; depth:1.5;" position="0 0 -5" material="shader:gif; src: #loader"  scale="0.8 0.8 0.8" visible="false">
+            <a-entity id="loader_entity" geometry="primitive:box; width:1.5; height:1.5; depth:1.5;" position="0 0 -5" material="shader:gif; src: #loader"  scale="1.0 1.0 1.0" visible="false">
                 <a-animation attribute="rotation" dur="10000" fill="forwards" to="0 360 0" repeat="indefinite" easing="linear">
                 </a-animation>
             </a-entity>
