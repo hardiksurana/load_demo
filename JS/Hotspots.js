@@ -363,10 +363,10 @@ var renderAnimations = function (tempScene) {
                         console.log('sky color is removed');
                         document.querySelector('a-sky').setAttribute('color', '');
                         console.log('loader visibility is false');
-                        document.querySelector('#loader_entity').setAttribute('visible', false);
+                        document.querySelector('#loader_entity').setAttribute('visible', "false");
                         // document.querySelector('#loader_entity').className = 'loader';
                         console.log('shown loader is removed. end of function.');
-                        LoaderShown = false;                        
+                        LoaderShown = false;
                     }, 2000);
                 }
 
@@ -455,7 +455,7 @@ var getReticlePosition = function(){
 var setLoader = function() {
     var position = getReticlePosition();
     document.querySelector('#loader_entity').setAttribute('position', `${position.x} ${position.y} ${position.z}`);
-    document.querySelector('#loader_entity').setAttribute('visible', true);
+    document.querySelector('#loader_entity').setAttribute('visible', "true");
     console.log('loader_entity is set. In setLoader function.');
     // document.querySelector('#loader_entity').classList.remove('loader');
     document.querySelector('a-sky').setAttribute('color', '#293f59');
