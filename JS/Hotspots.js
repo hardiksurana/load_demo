@@ -360,14 +360,16 @@ var renderAnimations = function (tempScene) {
                 }
                 else {
                     setTimeout(function() {
-                        console.log('sky color is removed');
                         document.querySelector('a-sky').setAttribute('color', '');
-                        console.log('loader visibility is false');
+                        console.log('sky color is removed');
+                        // console.log('loader visibility is false');
                         // document.querySelector('#loader_entity').setAttribute('visible', false);
                         // document.querySelector('#loader_entity').className = 'loader';
                         // document.querySelector('#loader_entity').visible = false;
-                        $('#loader_entity').attr('visible', false);
-                        console.log("supposed to be false - ", $('#loader_entity').attr('visible'));
+                        // $('#loader_entity').attr('visible', false);
+                        var loader = document.querySelector("#loader_entity");
+                        loader.parentNode.removeChild(loader);
+                        // console.log("supposed to be false - ", $('#loader_entity').attr('visible'));
                         console.log('shown loader is removed. end of function.');
                         LoaderShown = false;
                     }, 2000);
@@ -457,12 +459,43 @@ var getReticlePosition = function(){
  */
 var setLoader = function() {
     var position = getReticlePosition();
-    document.querySelector('#loader_entity').setAttribute('position', `${position.x} ${position.y} ${position.z}`);
-    $('#loader_entity').attr('visible', true);
-    console.log("supposed to be true - ", $('#loader_entity').attr('visible'));
+
+    // create loader entity here
+    var loaderEntity = document.createElement('a-entity');
+    loaderEntity.setAttribute("id", "loader_entity");
+    loaderEntity.setAttribute("geometry", {
+     primitive:"box",
+     width:"1.5",
+     height:"1.5",
+     depth:"1.5"
+    });
+    loaderEntity.setAttribute("position", "0 0 -5");
+    loaderEntity.setAttribute("material", {
+        shader: "gif",
+        src: "#loader"
+    });
+    loaderEntity.setAttribute("scale", "1.0 1.0 1.0");
+    loaderEntity.setAttribute("visible", "true");
+    loaderEntity.setAttribute('position', `${position.x} ${position.y} ${position.z}`);
+
+    var animation = document.createElement("a-animation");
+    animation.setAttribute("attribute", "rotation");
+    animation.setAttribute("dur", "10000");
+    animation.setAttribute("fill", "forwards");
+    animation.setAttribute("to", "0 360 0");
+    animation.setAttribute("repeat", "indefinite");
+    animation.setAttribute("easing", "linear");
+
+    // append loaderEntity to scene
+    loaderEntity.appendChild(animation);
+    document.querySelector('a-scene').appendChild(loaderEntity);
+
+    // $('#loader_entity').attr('visible', true);
+    // console.log("supposed to be true - ", $('#loader_entity').attr('visible'));
     // console.log('loader_entity is set. In setLoader function.');
     // document.querySelector('#loader_entity').classList.remove('loader');
     // document.querySelector('#loader_entity').visible = true;
+
     document.querySelector('a-sky').setAttribute('color', '#293f59');
     console.log('sky color is added.');
     LoaderShown = true;
