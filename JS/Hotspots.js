@@ -359,7 +359,7 @@ var renderAnimations = function (tempScene) {
                     fadeAnimation(0, 1, 400);
                 }
                 else {
-                    setTimeout(function() {
+                    // setTimeout(function() {
                         document.querySelector('a-sky').setAttribute('color', '');
                         console.log('sky color is removed');
                         // console.log('loader visibility is false');
@@ -372,7 +372,7 @@ var renderAnimations = function (tempScene) {
                         // console.log("supposed to be false - ", $('#loader_entity').attr('visible'));
                         console.log('shown loader is removed. end of function.');
                         LoaderShown = false;
-                    }, 2000);
+                    // }, 2000);
                 }
 
             document.querySelector('a-sky').removeEventListener('materialtextureloaded', callback);
