@@ -10,8 +10,7 @@ var SCENES = [
 						rotation: "0 -60 0",
                         src: "./assets/panos/hall.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'hall',
@@ -31,8 +30,7 @@ var SCENES = [
 						rotation: "0 -140 0",
 						src: "./assets/panos/diningRoom.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'livingRoom',
@@ -45,8 +43,7 @@ var SCENES = [
 						rotation: "0 -60 0",
 						src: "./assets/panos/diningRoom.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'diningRoom',
@@ -81,8 +78,7 @@ var SCENES = [
 						rotation: "0 93.5 0",
 						src: "./assets/panos/guestRoom.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'kitchen',
@@ -95,8 +91,7 @@ var SCENES = [
 						rotation: "0 -137 0",
 						src: "./assets/panos/diningRoom.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'bedRoomTwo',
@@ -122,8 +117,7 @@ var SCENES = [
 						rotation: "0 -128.0 0",
 						src: "./assets/panos/bedroomTwoBathroomView.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'bedRoomTwoViewTwo',
@@ -136,8 +130,7 @@ var SCENES = [
 						rotation: "0 -41.8 0",
 						src: "./assets/panos/bedroomTwo.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'bedRoomTwoBathroom',
@@ -150,8 +143,7 @@ var SCENES = [
 						rotation: "0 51.39 0",
 						src: "./assets/panos/CorridorView.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'bedRoomOne',
@@ -171,8 +163,7 @@ var SCENES = [
 						rotation: "0 -80.3 0",
 						src: "./assets/panos/CorridorView.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'bedRoomOneBathroom',
@@ -185,8 +176,7 @@ var SCENES = [
 						rotation: "0 126.2 0",
 						src: "./assets/panos/bedroomOne.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'guestRoom',
@@ -199,8 +189,7 @@ var SCENES = [
 						rotation: "0 104 0",
 						src: "./assets/panos/CorridorView.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'commonBathRoom',
@@ -213,8 +202,7 @@ var SCENES = [
 						rotation: "0 -180 0",
 						src: "./assets/panos/diningRoom.jpg"
 					}
-				],
-            download: false
+				]
 			},
 			{
 			name:'CorridorView',
@@ -251,8 +239,7 @@ var SCENES = [
 						rotation:"0 -50.3 0",
                         src: "./assets/panos/hall.jpg"
 					}
-				],
-            download: false
+				]
 			}
 		];
 
@@ -263,27 +250,26 @@ var LoaderShown = false;
 
 
 
-var DownloadRemainingAssets = function() {
-    var allImages = new Set();
-    SCENES.map(function(scene) {
-        allImages.add(scene.name);
+var DownloadRemainingAssets = function(nextSceneHotspots) {
+    var hotspotSceneToLoad = SCENES.filter(function(scene){
+        if(scene.name === nextSceneHotspot.connected){
+            return scene;
+        }
     });
 
-    var remainingImages = allImages.difference(ImgSet);
-    for (var image of remainingImages) {
-        if(!ImgSet.has(image)) {
-            var num = findScene(image);
-
+    hotspotSceneToLoad.hotspots.map(function(newHotspot) {
+        if(!ImgSet.has(newHotspot.connected)) {
             var newimg = new Image();
-            newimg.src = hotspot.src;
-            newimg.id = newSceneId;
+            var newId = newHotspot.id;
+            newimg.src = newHotspot.src;
+            newimg.id = newId;
 
-            document.querySelector('a-assets').appendChild(img);
-            document.querySelector('#' + newSceneId).addEventListener('load', function() {
-                ImgSet.add(newSceneId);
+            document.querySelector('a-assets').appendChild(newimg);
+            document.querySelector('#' + newId).addEventListener('load', function() {
+                ImgSet.add(newId);
             });
         }
-    }
+    });
 }
 
 
@@ -306,14 +292,11 @@ var findScene = function(sceneName) {
 
 
 /**
- * Search for hotspots from curren scene
- * get ID and src for each hotspot
- * add the images to <a-assets>
- * set download flag as true to prevent re-download
+ * preload next scene's images and add them to a-assets
  */
 var preloadImage = function(hotspot) {
     var newSceneId = hotspot.connected;
-    var num = findScene(newSceneId);
+    // var num = findScene(newSceneId);
     if(!ImgSet.has(newSceneId)) {
         var img = new Image();
         img.src = hotspot.src;
@@ -328,8 +311,7 @@ var preloadImage = function(hotspot) {
 
 
 /**
- * renders a hotspot on current scene
- * adds the hotspots to <a-scene />
+ * renders a hotspot on current scene and loads them to <a-scene />
  * @param  {[String]} hotspot [hotspot to be rendered]
  */
 var renderHotspot = function(hotspot){
@@ -408,9 +390,9 @@ var loadScene = function(tempScene) {
                     preloadImage(hotspot);
                 });
             })
-            // .then(function() {
-            //     DownloadRemainingAssets();
-            // })
+            .then(function() {
+                DownloadRemainingAssets(tempScene[0].hotspots);
+            })
             .catch(function(err) {
                 console.log('Catch: ', err);
             });
