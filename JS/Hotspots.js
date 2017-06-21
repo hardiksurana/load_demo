@@ -249,11 +249,14 @@ var ImgSet = new Set();
 var LoaderShown = false;
 
 
-
+/**
+ * downloads subsequent scene's hotspots
+ * @param  {[Array]} nextSceneHotspots [contains current scene's hotspots]
+ */
 var DownloadRemainingAssets = function(nextSceneHotspots) {
     nextSceneHotspots.map(funtion(nextSceneHotspot) {
-        var hotspotSceneToLoad = SCENES.filter(function(scene){
-            if(scene.name === nextSceneHotspot.connected){
+        var hotspotSceneToLoad = SCENES.filter(function(scene) {
+            if(scene.name === nextSceneHotspot.connected) {
                 return scene;
             }
         });
@@ -269,6 +272,8 @@ var DownloadRemainingAssets = function(nextSceneHotspots) {
                 document.querySelector('#' + newId).addEventListener('load', function() {
                     ImgSet.add(newId);
                 });
+            } else {
+                console.log('image already downloaded.');
             }
         });
     });
