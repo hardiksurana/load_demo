@@ -251,24 +251,26 @@ var LoaderShown = false;
 
 
 var DownloadRemainingAssets = function(nextSceneHotspots) {
-    var hotspotSceneToLoad = SCENES.filter(function(scene){
-        if(scene.name === nextSceneHotspot.connected){
-            return scene;
-        }
-    });
+    nextSceneHotspots.map(funtion(nextSceneHotspot) {
+        var hotspotSceneToLoad = SCENES.filter(function(scene){
+            if(scene.name === nextSceneHotspot.connected){
+                return scene;
+            }
+        });
 
-    hotspotSceneToLoad.hotspots.map(function(newHotspot) {
-        if(!ImgSet.has(newHotspot.connected)) {
-            var newimg = new Image();
-            var newId = newHotspot.id;
-            newimg.src = newHotspot.src;
-            newimg.id = newId;
+        hotspotSceneToLoad.hotspots.map(function(newHotspot) {
+            if(!ImgSet.has(newHotspot.connected)) {
+                var newimg = new Image();
+                var newId = newHotspot.id;
+                newimg.src = newHotspot.src;
+                newimg.id = newId;
 
-            document.querySelector('a-assets').appendChild(newimg);
-            document.querySelector('#' + newId).addEventListener('load', function() {
-                ImgSet.add(newId);
-            });
-        }
+                document.querySelector('a-assets').appendChild(newimg);
+                document.querySelector('#' + newId).addEventListener('load', function() {
+                    ImgSet.add(newId);
+                });
+            }
+        });
     });
 }
 
