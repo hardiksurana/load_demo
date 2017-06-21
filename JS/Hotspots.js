@@ -355,24 +355,14 @@ var renderAnimations = function (tempScene) {
         var callback = function renderAnimationOrLoader() {
             // show animation or remove loader
                 if(LoaderShown === false) {
-                    fadeAnimation(1, 0, 400);
-                    fadeAnimation(0, 1, 400);
+                    fadeAnimation(1, 0, 1000);
+                    fadeAnimation(0, 1, 1000);
                 }
                 else {
-                    // setTimeout(function() {
-                        document.querySelector('a-sky').setAttribute('color', '');
-                        console.log('sky color is removed');
-                        // console.log('loader visibility is false');
-                        // document.querySelector('#loader_entity').setAttribute('visible', false);
-                        // document.querySelector('#loader_entity').className = 'loader';
-                        // document.querySelector('#loader_entity').visible = false;
-                        // $('#loader_entity').attr('visible', false);
-                        var loader = document.querySelector("#loader_entity");
-                        loader.parentNode.removeChild(loader);
-                        // console.log("supposed to be false - ", $('#loader_entity').attr('visible'));
-                        console.log('shown loader is removed. end of function.');
-                        LoaderShown = false;
-                    // }, 2000);
+                    document.querySelector('a-sky').setAttribute('color', '');
+                    var loader = document.querySelector("#loader_entity");
+                    loader.parentNode.removeChild(loader);
+                    LoaderShown = false;
                 }
 
             document.querySelector('a-sky').removeEventListener('materialtextureloaded', callback);
@@ -491,15 +481,7 @@ var setLoader = function() {
     // append loaderEntity to scene
     loaderEntity.appendChild(animation);
     document.querySelector('a-scene').appendChild(loaderEntity);
-
-    // $('#loader_entity').attr('visible', true);
-    // console.log("supposed to be true - ", $('#loader_entity').attr('visible'));
-    // console.log('loader_entity is set. In setLoader function.');
-    // document.querySelector('#loader_entity').classList.remove('loader');
-    // document.querySelector('#loader_entity').visible = true;
-
     document.querySelector('a-sky').setAttribute('color', '#293f59');
-    console.log('sky color is added.');
     LoaderShown = true;
 }
 
