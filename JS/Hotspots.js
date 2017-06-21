@@ -254,7 +254,7 @@ var LoaderShown = false;
  * @param  {[Array]} nextSceneHotspots [contains current scene's hotspots]
  */
 var DownloadRemainingAssets = function(nextSceneHotspots) {
-    nextSceneHotspots.map(funtion(nextSceneHotspot) {
+    nextSceneHotspots.map(function(nextSceneHotspot) {
         var hotspotSceneToLoad = SCENES.filter(function(scene) {
             if(scene.name === nextSceneHotspot.connected) {
                 return scene;
