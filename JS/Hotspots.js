@@ -396,9 +396,13 @@ var loadScene = function(tempScene) {
                     renderHotspot(hotspot);
                     preloadImage(hotspot);
                 });
+                console.log('complete immediate scenes images');
+                return tempScene;
             })
             .then(function(tempScene) {
+                console.log('calling DownloadRemainingAssets.');
                 DownloadRemainingAssets(tempScene[0].hotspots);
+                console.log('completed downloading all subsequent assets.');
             })
             .catch(function(err) {
                 console.log('Catch: ', err);
