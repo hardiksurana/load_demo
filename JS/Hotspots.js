@@ -458,34 +458,35 @@ var getReticlePosition = function(){
  * if asset is not downloaded, it shows the loader
  */
 var setLoader = function() {
-    var position = getReticlePosition();
-
     // create loader entity here
     var loaderEntity = document.createElement('a-entity');
+
     loaderEntity.setAttribute("id", "loader_entity");
     loaderEntity.setAttribute('geometry', {
-     primitive: 'box',
-     width: 1.5,
-     height: 1.5,
-     depth: 1.5
+        primitive: 'box',
+        width: 1.5,
+        height: 1.5,
+        depth: 1.5
     });
-    // loaderEntity.setAttribute('position', { x: 0, y: 0, z: -5 });
-    // loaderEntity.setAttribute("position", "0 0 -5");
-    loaderEntity.setAttribute("material", {
-        shader: "gif",
-        src: "#loader"
-    });
-    loaderEntity.setAttribute("scale", "1.0 1.0 1.0");
-    loaderEntity.setAttribute("visible", "true");
+
+    var position = getReticlePosition();
     loaderEntity.setAttribute('position', `${position.x} ${position.y} ${position.z}`);
 
-    var animation = document.createElement("a-animation");
-    animation.setAttribute("attribute", "rotation");
-    animation.setAttribute("dur", "10000");
-    animation.setAttribute("fill", "forwards");
-    animation.setAttribute("to", "0 360 0");
-    animation.setAttribute("repeat", "indefinite");
-    animation.setAttribute("easing", "linear");
+    loaderEntity.setAttribute('material', {
+        shader: 'gif',
+        src: '#loader'
+    });
+    loaderEntity.setAttribute('scale', '1.0 1.0 1.0');
+    loaderEntity.setAttribute('visible', true);
+
+
+    var animation = document.createElement('a-animation');
+    animation.setAttribute('attribute', 'rotation');
+    animation.setAttribute('dur', '10000');
+    animation.setAttribute('fill', 'forwards');
+    animation.setAttribute('to', '0 360 0');
+    animation.setAttribute('repeat', 'indefinite');
+    animation.setAttribute('easing', 'linear');
 
     // append loaderEntity to scene
     loaderEntity.appendChild(animation);
